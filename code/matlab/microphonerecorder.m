@@ -2,7 +2,7 @@
 %then it adds some gaussian noise to it and compares
 %the two sound clips
 
-recordingTime = 2;%seconds
+recordingTime = 6;%seconds
 %sample rate
 fs = 44100;%hz
 %bits per sample
