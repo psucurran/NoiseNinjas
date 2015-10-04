@@ -1,3 +1,8 @@
+%This Script Generates a sound clip equal to a defined sound wave
+%It then adds gaussian noise to the sound wave
+%It then compares the original signal with the noisy signal
+%by playing both for the sound clips from the computer
+
 %sampling frequency
 fs = 44100; % Hz
 %duration of noise
