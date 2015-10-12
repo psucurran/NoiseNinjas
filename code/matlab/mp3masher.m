@@ -9,7 +9,7 @@
 speaker = 'sound_clips/voice1.mp3';
 background = 'sound_clips/construction.mp3';
 speakerScale = 1;
-backgroundScale = 1/5;
+backgroundScale = 1/4;
 
 [speakerY,speakerFS] = audioread(speaker);
 [backgroundY,backgroundFS] = audioread(background);
