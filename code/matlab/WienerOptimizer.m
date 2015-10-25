@@ -7,7 +7,8 @@
 %back out.
 function h = WienerOptimizer(voice,input)
     rdx = xcorr(voice,input);
-    Rx = autocorr(input);
+    rx = xcorr(input);
+    Rx = AutocorrelationMatrix(rx);
     
     h = inv(Rx) * rdx;
 end
