@@ -8,6 +8,7 @@ gdims = size(g);
 NCC = 0;
 
 if ( fdims ~= gdims || fdims(1) ~= 1 )
+    display('Incorrect Dimensions given in function NormalizedCorrelation');
     return
 end
  
