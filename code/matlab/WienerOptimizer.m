@@ -5,7 +5,7 @@
 %this funciont trains a filter h. You can then convolute 
 %trueInput with h and you should get a best estimate of voice
 %back out.
-function h = WienerOptimizer(voice,input, FS)
+function [h,x,y] = WienerOptimizer(voice,input, FS)
     
 
     sizeOfFilter = 5;
