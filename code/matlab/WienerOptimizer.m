@@ -8,7 +8,7 @@
 function [h,x,y] = WienerOptimizer(voice,input, FS)
     
 
-    sizeOfFilter = 5;
+    sizeOfFilter = 20;
     voiceOffset = 500000;
     lengthOfVoice = 50;
     
