@@ -8,9 +8,9 @@
 function h = WienerOptimizer(voice,input, FS)
     
 
-    sizeOfFilter = 1000;
+    sizeOfFilter = 5;
     voiceOffset = 500000;
-    lengthOfVoice = 100000;
+    lengthOfVoice = 50;
     
     x = input((voiceOffset+1)+(1-sizeOfFilter):1+voiceOffset+lengthOfVoice-1+sizeOfFilter-1);
     y = voice(1+voiceOffset:1+voiceOffset+lengthOfVoice-1);
@@ -18,11 +18,12 @@ function h = WienerOptimizer(voice,input, FS)
     playblocking(audioplayer(x,FS));
     playblocking(audioplayer(y,FS));
     
-    %h = zeros(sizeOfFilter);
-    %Rx = AutocorrelationMatrix(input, sizeOfFilter);
+    h = zeros(sizeOfFilter);
+    Rx = AutocorrelationMatrix(input, sizeOfFilter);
 
-    %rdx = NCCLagRange(y,x,sizeOfFilter-1,1-sizeOfFilter);
+    x2 = x(sizeOfFilter:end);
+    rdx = NCCLagRange(y,x2,sizeOfFilter-1,0);
 
     
-    %h = inv(Rx) * rdx;
+    h = inv(Rx) * rdx;
 end

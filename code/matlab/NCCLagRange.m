@@ -2,11 +2,11 @@ function [ NCCL ] = NCCLagRange(f, g, maxLag, minLag)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 dimsf = size(f);
-flength = dimsy(2);
+flength = dimsf(1);
 dimsg = size(g);
-glength = dimsx(2);
+glength = dimsg(1);
 
-NCCL = zeros(maxLag-minLag+1);
+NCCL = zeros(maxLag-minLag+1,1);
 
 if (maxLag + flength - minLag ~= glength)
     display('Incorrect Dimensions given in function NCCLagRange');
@@ -15,8 +15,11 @@ end
     
 gTemp = g(1:flength);
 
+fmean = mean(f);
+
 for i = 1:maxLag-minLag+1
-    NCCL(i) = NormalizedCorrelation(f,gTemp);
+    fprintf('%d\n',i);
+    NCCL(i) = NormalizedCorrelation(f, fmean,gTemp);
     
     gTemp(1:flength-1) = gTemp(2:flength);
     if (i ~= maxLag-minLag+1)
