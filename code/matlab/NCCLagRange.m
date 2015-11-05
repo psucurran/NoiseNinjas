@@ -47,29 +47,32 @@ NCCL(1) = NCCL(1)/flength;
 for i = 2:maxLag-minLag+1
     fprintf('%d\n',i);
     
+    removeIndex = i-1;
+    addIndex = flength+i-1;
+    
     NCCL(i) = NCCL(i-1);
     NCCL(i) = NCCL(i)*flength;
-    NCCL(i) = NCCL(i) - ((f(flength)-fmean)/sdf)*((g(flength+i-2)-gmean)/sdg);
+    NCCL(i) = NCCL(i) - ((f(flength)-fmean)/sdf)*((g(removeIndex)-gmean)/sdg);
     
     %adjust varg for removing first element
     sdg = sdg^2;
     sdg = sdg*(flength);
-    sdg = sdg - (g(i-1)-gmean)^2;
+    sdg = sdg - (g(removeIndex)-gmean)^2;
     
     %remove first element from gmean
     gmean = gmean*flength;
-    gmean = gmean-g(i-1);
+    gmean = gmean-g(removeIndex);
     
     %add last element back into mean
-    gmean = gmean + g(flength+i-1);
+    gmean = gmean + g(addIndex);
     gmean = gmean/flength;
     
     %recalculate varg with last element
-    sdg = sdg + (g(flength+i-1)-gmean)^2;
+    sdg = sdg + (g(addIndex)-gmean)^2;
     sdg = sdg/(flength);
     sdg = sqrt(sdg);
     
-    NCCL(i) = NCCL(i) + ((f(flength)-fmean)/sdf)*((g(flength+i-1)-gmean)/sdg);
+    NCCL(i) = NCCL(i) + ((f(flength)-fmean)/sdf)*((g(addIndex)-gmean)/sdg);
     NCCL(i) = NCCL(i)/flength;
 end
 
