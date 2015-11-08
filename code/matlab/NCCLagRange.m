@@ -1,30 +1,27 @@
-function [ NCCL ] = NCCLagRange(f, g, maxLag, minLag)
+function [ NCCL ] = NCCLagRange(f, g, maxLag)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 dimsf = size(f);
 flength = dimsf(1);
-dimsg = size(g);
-glength = dimsg(1);
 
-NCCL = zeros(maxLag-minLag+1,1);
+NCCL = zeros(maxLag + 1,1);
 
-if (maxLag + flength - minLag ~= glength)
-    display('Incorrect Dimensions given in function NCCLagRange');
-    return
+NCCL(1) = 0;
+
+for i = 1:flength
+    NCCL(1) = NCCL(1) + f(i)*g(i);
 end
-    
-gTemp = g(1:flength);
 
-fmean = mean(f);
-
-for i = 1:maxLag-minLag+1
+for i = 2:maxLag+1
     fprintf('%d\n',i);
-    NCCL(i) = NormalizedCorrelation(f, fmean,gTemp);
     
-    gTemp(1:flength-1) = gTemp(2:flength);
-    if (i ~= maxLag-minLag+1)
-        gTemp(flength) = g(flength+i);
-    end
+    removeIndex = i-1;
+    addIndex = flength+i-1;
+    
+    NCCL(i) = NCCL(i-1);
+    NCCL(i) = NCCL(i) - f(flength)*g(removeIndex);
+    
+    NCCL(i) = NCCL(i) + f(flength)*g(addIndex);
 end
 
 end

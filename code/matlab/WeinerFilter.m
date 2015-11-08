@@ -6,7 +6,7 @@ function [ y ] = WeinerFilter( input, h )
 dims = size(input);
     dimsh = size(h);
     
-    y = zeros(dims(1)-dimsh(1)-dimsh(1)+2,1);
+    y = zeros(dims(1)-dimsh(1)+1,1);
     ydims = size(y);
     N = dimsh(1);
     

@@ -1,18 +1,14 @@
 function [ R ] = AutocorrelationMatrix( x, N )
     R = zeros(N,N);
     
-    fixedX = x(N:end-(N-1));
+    fixedX = x(1:end-(N-1));
     
-    NCCL = NCCLagRange(fixedX,x,N-1, 1-N);
+    NCCL = NCCLagRange(fixedX,x,N-1);
     
-    row = 1;
-    for i = 0:N-1
-       col = N;
-       for j = 1-N:0
-           R(row,col) = NCCL(i+j+N);
-           col = col -1;
-       end
-       row = row + 1;
+    for row=1:N
+        for col=1:N
+            R(row,col) = NCCL(abs(row-col)+1);
+        end
     end
 end
 
