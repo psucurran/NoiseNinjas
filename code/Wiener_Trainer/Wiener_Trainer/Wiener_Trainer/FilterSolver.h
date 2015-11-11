@@ -18,15 +18,10 @@ public:
 		this->dfile = dfile;
 	}
 
-	void SolveForFilter(MatrixXf &h, unsigned long N,
+	void SolveForFilter(const string &houtput, unsigned int m, unsigned long N,
 		FilterSolverType solveType = Accurate)
 	{
-		if ( h.cols() != 1 )
-		{
-			cout << "incorrect filter dimensions" << endl;
-			return;
-		}
-		SolveForFilter(ffile,dfile,N,h.rows(),h,solveType);
+		SolveForFilter(ffile,dfile,N,m,houtput,solveType);
 	}
 
 
@@ -34,7 +29,7 @@ public:
 	//dfile - desired output in return delimited file
 	//h (out) - computed filter, allocated before function call
 	static void SolveForFilter(const string &ffile, const string &dfile, 
-		unsigned long N, unsigned int filterSize, MatrixXf &h,
+		unsigned long N, unsigned int filterSize, const string &houtput,
 		FilterSolverType solveType = Accurate)
 	{
 		cout << "Filter Solver Started!" << endl;
@@ -49,6 +44,7 @@ public:
 		delete filler;
 		filler = nullptr;
 
+		MatrixXf h(filterSize, 1);
 
 		//output X to a file? (to save time in case of failures)
 
@@ -65,8 +61,14 @@ public:
 
 			cout << "Reading in d" << endl;
 			//read in d from file
-			int d1,d2;
-			MatrixXf d(d1,d2);
+			MatrixXf d(N-filterSize+1,1);
+			ifstream myfile(dfile);
+			string line;
+			if (myfile.is_open())
+			{
+				for (unsigned int i = 0; getline(myfile, line); i++)
+					d(i, 0) = stof(line);
+			}
 
 			cout << "Solving for h (this could be a while)!" << endl;
 			//finally solve for h
@@ -83,12 +85,27 @@ public:
 
 			cout << "Reading in d" << endl;
 			//read in d from file
-			int d1,d2;
-			MatrixXf d(d1,d2);
+			MatrixXf d(N-filterSize+1,1);
+			ifstream myfile(dfile);
+			string line;
+			if (myfile.is_open())
+			{
+				for (unsigned int i = 0; getline(myfile, line); i++)
+					d(i, 0) = stof(line);
+			}
 
 			cout << "Solving for h (this could be a while)!" << endl;
 			//finally solve for h
 			h = hqr.solve(d);
+		}
+		cout << "filter h successfully computed. ouputting h to file now" << endl;
+		ofstream fout;
+		fout.open(houtput);
+		for (unsigned int i = 0; i < h.rows(); i++)
+		{
+			fout << h(i, 0);
+			if (i != h.rows() - 1)
+				fout << "\n";
 		}
 	}
 private:

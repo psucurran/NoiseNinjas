@@ -7,6 +7,8 @@
 #include <iostream>
 #include <mutex>
 #include <fstream>
+#include <functional>
+#include <chrono>
 
 using namespace std;
 using namespace Eigen;
@@ -29,11 +31,15 @@ public:
 		this->matrix = matrix;
 		this->N = N;
 		
-		for ( int i = 0; i<numthreads; i++ )
+		for ( unsigned int i = 0; i<numthreads; i++ )
 		{
-			threads.push(unique_ptr<thread>(new thread(Fill,i*(m/numthreads),(i+1)*(m/numthreads))));
+			unsigned int colStart = i*(m / numthreads);
+			unsigned int colEnd = (i + 1)*(m / numthreads);
+			threads.push(unique_ptr<thread>(new thread(
+				std::bind(&ParallelMatrixFiller::Fill,this,colStart,colEnd))));
 		}
-		threads.push(unique_ptr<thread>(new thread(ProgressReporter)));
+		threads.push(unique_ptr<thread>(new thread(
+			std::bind(&ParallelMatrixFiller::ProgressReporter,this))));
 	}
 
 	~ParallelMatrixFiller()
@@ -47,12 +53,34 @@ public:
 		cout << "Matrix Filler Completed!" << endl;
 	}
 
+	unsigned int GetCol(unsigned int colStart, unsigned int colEnd,
+		unsigned int currentDiagnol)
+	{
+		long C = colEnd - 1 - currentDiagnol;
+		if (C >= colStart)
+			return C;
+		else
+			return colStart;
+	}
+	
+	unsigned int GetRow(unsigned int colStart, unsigned colEnd,
+		unsigned int currentDiagnol)
+	{
+		long R = 0 - ((colEnd - colStart) - (currentDiagnol + 1));
+		if (R <= 0)
+			return 0;
+		else
+			return R;
+	}
+
 	//inclusive starting bound on the columns of the matrix fille
 	//unsigned int colStart;
 	//exclusive limit of the column of the matrix to fill
 	//unsigned int colEnd;
 	void Fill(unsigned int colStart, unsigned int colEnd)
 	{
+		unsigned int progressUpdateCount = 1000;
+		unsigned long counter = 0;
 		unsigned int startingFIndex = m-colEnd;
 		unsigned int endingFIndex = N-colStart;
 		unsigned int currentFIndex = 0;
@@ -63,18 +91,38 @@ public:
 			for (currentFIndex = 0; currentFIndex<startingFIndex 
 				&& getline(myfile,line); currentFIndex++);
 
-			for (int currentDiagnol = 0;currentFIndex <= endingFIndex && 
+			for (int currentDiagnol = 0;currentFIndex < endingFIndex && 
 				getline(myfile,line); currentFIndex++, currentDiagnol++)
 			{
-				float f = stof(line);
-
+				register float f = stof(line);
+				unsigned int row = GetRow(colStart, colEnd, currentDiagnol);
+				unsigned int col = GetCol(colStart, colEnd, currentDiagnol);
+				for (; row < N && col < colEnd; col++, row++, counter++)
+				{
+					(*matrix)(row, col) = f;
+					if (counter%progressUpdateCount == 0)
+					{
+						lock.lock();
+						progress += counter;
+						lock.unlock();
+					}
+				}
+				if (counter%progressUpdateCount == 0)
+				{
+					lock.lock();
+					progress += counter;
+					lock.unlock();
+				}
 			}
 		}
 	}
 
 	void ProgressReporter()
 	{
-
+		lock.lock();
+		cout << "Matrix Filling Progess: %" << (progress / (m*N)) * 100 << endl;
+		std::this_thread::sleep_for(std::chrono::seconds(10));
+		lock.unlock();
 	}
 
 private:

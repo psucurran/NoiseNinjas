@@ -2,6 +2,7 @@
 #include <Eigen/Dense>
 #include <Eigen/SVD>
 #include "FilterSolver.h"
+#include <Eigen/Core>
 using Eigen::MatrixXd;
 using namespace std;
 using namespace Eigen;
@@ -40,12 +41,16 @@ void WienerTrainerDemo2()
 
 int main()
 {
+	int numthreads = 8;
+	omp_set_num_threads(numthreads);
+	if (numthreads > 1)
+		Eigen::initParallel();
+
 	unsigned int m = 100;
-	unsigned long N = 100000 - 99;
-	MatrixXf h(m,1);
+	unsigned long N = 100000;
 	//return delimited files!!!
 	FilterSolver solver("f.dat","d.dat");
-	solver.SolveForFilter(h,N,FilterSolverType::Accurate);
+	solver.SolveForFilter("h.dat",m,N,FilterSolverType::Accurate);
 
 	return 0;
 }
