@@ -30,11 +30,12 @@ public:
 		this->m = m;
 		this->matrix = matrix;
 		this->N = N;
+		this->progress = 0;
 		
 		for ( unsigned int i = 0; i<numthreads; i++ )
 		{
-			unsigned int colStart = i*(m / numthreads);
-			unsigned int colEnd = (i + 1)*(m / numthreads);
+			unsigned int colStart = (i*m) / numthreads;
+			unsigned int colEnd = ((i + 1)*m) / numthreads;
 			threads.push(unique_ptr<thread>(new thread(
 				std::bind(&ParallelMatrixFiller::Fill,this,colStart,colEnd))));
 		}
@@ -57,7 +58,7 @@ public:
 		unsigned int currentDiagnol)
 	{
 		long C = colEnd - 1 - currentDiagnol;
-		if (C >= colStart)
+		if (C >= (long) colStart)
 			return C;
 		else
 			return colStart;
@@ -97,7 +98,7 @@ public:
 				register float f = stof(line);
 				unsigned int row = GetRow(colStart, colEnd, currentDiagnol);
 				unsigned int col = GetCol(colStart, colEnd, currentDiagnol);
-				for (; row < N && col < colEnd; col++, row++, counter++)
+				for (; row < N-m+1 && col < colEnd; col++, row++, counter++)
 				{
 					(*matrix)(row, col) = f;
 					if (counter%progressUpdateCount == 0)
