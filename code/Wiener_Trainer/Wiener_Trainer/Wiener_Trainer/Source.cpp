@@ -41,16 +41,20 @@ void WienerTrainerDemo2()
 
 int main()
 {
-	int numthreads = 8;
+	int numthreads = 3;
 	omp_set_num_threads(numthreads);
 	if (numthreads > 1)
 		Eigen::initParallel();
 
-	unsigned int m = 100;
-	unsigned long N = 100000;
+	unsigned int m = 3;
+	unsigned long N = 5;
 	//return delimited files!!!
-	FilterSolver solver("f.dat","d.dat");
-	solver.SolveForFilter("h.dat",m,N,FilterSolverType::Accurate);
+	FilterSolver solver(
+		"C:\\Users\\spc5213\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\f.txt", 
+		"C:\\Users\\spc5213\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\d.txt");
+	solver.SolveForFilter(
+		"C:\\Users\\spc5213\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\h.txt",
+		m,N,FilterSolverType::Accurate);
 
 	return 0;
 }

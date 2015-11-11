@@ -36,8 +36,7 @@ public:
 		if (solveType != Fast || solveType != Accurate)
 			cout << "Invalid FilterSolverType" << endl;
 
-		int x1,x2;
-		shared_ptr<MatrixXf> X(new MatrixXf(x1,x2));
+		shared_ptr<MatrixXf> X(new MatrixXf(N-filterSize+1,filterSize));
 		//multithreaded filling of X
 		ParallelMatrixFiller *filler = new ParallelMatrixFiller(ffile,N,filterSize,X,8);
 		//wait for the filler 
