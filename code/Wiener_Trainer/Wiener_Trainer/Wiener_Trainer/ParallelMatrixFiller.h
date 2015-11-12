@@ -31,6 +31,7 @@ public:
 		this->matrix = matrix;
 		this->N = N;
 		this->progress = 0;
+		this->runProgressReporter = true;
 		
 		for ( unsigned int i = 0; i<numthreads; i++ )
 		{
@@ -45,6 +46,9 @@ public:
 
 	~ParallelMatrixFiller()
 	{
+		lock.lock();
+		runProgressReporter = false;
+		lock.unlock();
 		while ( !threads.empty() )
 		{
 			threads.front()->join();
@@ -105,25 +109,32 @@ public:
 					{
 						lock.lock();
 						progress += counter;
+						counter = 0;
 						lock.unlock();
 					}
 				}
-				if (counter%progressUpdateCount == 0)
-				{
-					lock.lock();
-					progress += counter;
-					lock.unlock();
-				}
 			}
 		}
+
+		lock.lock();
+		progress += counter;
+		counter = 0;
+		lock.unlock();
 	}
 
 	void ProgressReporter()
 	{
 		lock.lock();
-		cout << "Matrix Filling Progess: %" << (progress / (m*N)) * 100 << endl;
-		std::this_thread::sleep_for(std::chrono::seconds(10));
+		bool run = runProgressReporter;
 		lock.unlock();
+		while(run)
+		{
+			lock.lock();
+			cout << "Matrix Filling Progess: %" << (progress*100) / (m*(N-m+1)) << endl;
+			run = runProgressReporter;
+			lock.unlock();
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+		}	
 	}
 
 private:
@@ -134,4 +145,5 @@ private:
 	shared_ptr<MatrixXf> matrix;
 	queue<unique_ptr<thread>> threads;
 	mutex lock;
+	bool runProgressReporter;
 };

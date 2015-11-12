@@ -46,14 +46,14 @@ int main()
 	if (numthreads > 1)
 		Eigen::initParallel();
 
-	unsigned int m = 3;
-	unsigned long N = 5;
+	unsigned int m = 101;
+	unsigned long N = 100000;
 	//return delimited files!!!
 	FilterSolver solver(
-		"C:\\Users\\sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\f.txt", 
-		"C:\\Users\\sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\d.txt", numthreads);
+		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\f1.txt", 
+		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\d1.txt", numthreads);
 	solver.SolveForFilter(
-		"C:\\Users\\sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\h.txt",
+		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\h1.txt",
 		m,N,FilterSolverType::Accurate);
 	system("pause");
 	return 0;

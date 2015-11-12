@@ -43,11 +43,11 @@ public:
 		shared_ptr<MatrixXf> X(new MatrixXf(N-filterSize+1,filterSize));
 		//multithreaded filling of X
 		ParallelMatrixFiller *filler = new ParallelMatrixFiller(ffile,N,filterSize,X,numthreads);
+
 		//wait for the filler 
 		delete filler;
 		filler = nullptr;
 
-		//cout << *X << endl;
 		MatrixXf h(filterSize, 1);
 
 		//output X to a file? (to save time in case of failures)
