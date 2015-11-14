@@ -70,7 +70,8 @@ public:
 			string line;
 			if (myfile.is_open())
 			{
-				for (unsigned int i = 0; getline(myfile, line); i++)
+				for (unsigned int i = 0; getline(myfile,line) && i<filterSize-1; i++);
+				for (unsigned int i = 0; getline(myfile, line) && i<N-filterSize+1; i++)
 					d(i, 0) = stof(line);
 			}
 
@@ -94,7 +95,8 @@ public:
 			string line;
 			if (myfile.is_open())
 			{
-				for (unsigned int i = 0; getline(myfile, line); i++)
+				for (unsigned int i = 0; getline(myfile,line) && i<filterSize-1; i++);
+				for (unsigned int i = 0; getline(myfile, line) && i<N-filterSize+1; i++)
 					d(i, 0) = stof(line);
 			}
 

@@ -288,6 +288,8 @@ struct householder_qr_inplace_blocked
     Index k = 0;
     for (k = 0; k < size; k += blockSize)
     {
+	  cout << "HouseholderQR Progress: k:" << k << "\tsize:" << size << "\tblockSize:" << blockSize << endl;
+
       Index bs = (std::min)(size-k,blockSize);  // actual size of the block
       Index tcols = cols - k - bs;            // trailing columns
       Index brows = rows-k;                   // rows of the block

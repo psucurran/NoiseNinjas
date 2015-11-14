@@ -9,6 +9,7 @@
 #include <fstream>
 #include <functional>
 #include <chrono>
+#include <stdint.h>
 
 using namespace std;
 using namespace Eigen;
@@ -27,9 +28,9 @@ public:
 		//}
 
 		this->file = file;
-		this->m = m;
+		this->m = (uint64_t) m;
 		this->matrix = matrix;
-		this->N = N;
+		this->N = (uint64_t) N;
 		this->progress = 0;
 		this->runProgressReporter = true;
 		
@@ -46,9 +47,6 @@ public:
 
 	~ParallelMatrixFiller()
 	{
-		lock.lock();
-		runProgressReporter = false;
-		lock.unlock();
 		while ( !threads.empty() )
 		{
 			threads.front()->join();
@@ -85,7 +83,7 @@ public:
 	void Fill(unsigned int colStart, unsigned int colEnd)
 	{
 		unsigned int progressUpdateCount = 1000;
-		unsigned long counter = 0;
+		uint64_t counter = 0;
 		unsigned int startingFIndex = m-colEnd;
 		unsigned int endingFIndex = N-colStart;
 		unsigned int currentFIndex = 0;
@@ -129,19 +127,19 @@ public:
 		lock.unlock();
 		while(run)
 		{
+			std::this_thread::sleep_for(std::chrono::seconds(10));
 			lock.lock();
 			cout << "Matrix Filling Progess: %" << (progress*100) / (m*(N-m+1)) << endl;
-			run = runProgressReporter;
+			run = (progress*100) / (m*(N-m+1)) != 100;
 			lock.unlock();
-			std::this_thread::sleep_for(std::chrono::seconds(2));
 		}	
 	}
 
 private:
 	string file;
-	unsigned long m;
-	unsigned long N;
-	unsigned long progress;
+	uint64_t m;
+	uint64_t N;
+	uint64_t progress;
 	shared_ptr<MatrixXf> matrix;
 	queue<unique_ptr<thread>> threads;
 	mutex lock;

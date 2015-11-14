@@ -41,7 +41,7 @@ void WienerTrainerDemo2()
 
 int main()
 {
-	int numthreads = 8;
+	int numthreads = 10;
 	omp_set_num_threads(numthreads);
 	if (numthreads > 1)
 		Eigen::initParallel();
