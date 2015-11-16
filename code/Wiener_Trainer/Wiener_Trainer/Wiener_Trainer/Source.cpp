@@ -57,11 +57,11 @@ int main()
 	
 	//return delimited files!!!
 	FilterSolver solver(
-		"E:\\wiener_training\\calibration_test\\f1.txt",
-		"E:\\wiener_training\\calibration_test\\d1.txt", numthreads);
+		"E:\\wiener_training\\dryer\\f.txt",
+		"E:\\wiener_training\\dryer\\d.txt", numthreads);
 	solver.SolveForFilter(
-		"E:\\wiener_training\\calibration_test\\h6.txt",
-		m,N,FilterSolverType::Fast);
+		"E:\\wiener_training\\dryer\\h9.txt",
+		m,N,FilterSolverType::Accurate);
 	system("pause");
 	return 0;
 }

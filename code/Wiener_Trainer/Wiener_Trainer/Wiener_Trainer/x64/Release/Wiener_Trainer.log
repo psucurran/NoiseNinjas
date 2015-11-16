@@ -1,4 +1,4 @@
-﻿Build started 11/15/2015 9:37:39 PM.
+﻿Build started 11/15/2015 11:09:15 PM.
      1>Project "C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\Wiener_Trainer\Wiener_Trainer\Wiener_Trainer\Wiener_Trainer.vcxproj" on node 2 (Build target(s)).
        Project file contains ToolsVersion="14.0". This toolset may be unknown or missing, in which case you may be able to resolve this by installing the appropriate version of MSBuild, or the build may have been forced to a particular ToolsVersion for policy reasons. Treating the project as if it had ToolsVersion="4.0". For more information, please see http://go.microsoft.com/fwlink/?LinkId=291333.
      1>ClCompile:
@@ -13,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:22.86
+Time Elapsed 00:00:23.22
