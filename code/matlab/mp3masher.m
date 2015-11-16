@@ -8,8 +8,8 @@
 
 speaker = 'sound_clips/voice1.mp3';
 background = 'sound_clips/dryer1.mp3';
-speakerScale = 1;
-backgroundScale = 1/5;
+speakerScale = 1/2;
+backgroundScale = 1;
 
 [speakerY,speakerFS] = audioread(speaker);
 [backgroundY,backgroundFS] = audioread(background);

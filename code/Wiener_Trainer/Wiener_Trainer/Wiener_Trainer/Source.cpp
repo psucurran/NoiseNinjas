@@ -57,10 +57,10 @@ int main()
 	
 	//return delimited files!!!
 	FilterSolver solver(
-		"E:\\wiener_training\\dryer\\f.txt",
-		"E:\\wiener_training\\dryer\\d.txt", numthreads);
+		"E:\\wiener_training(noise-cancellation)\\dryer\\f.txt",
+		"E:\\wiener_training(noise-cancellation)\\dryer\\d.txt", numthreads);
 	solver.SolveForFilter(
-		"E:\\wiener_training\\dryer\\h9.txt",
+		"E:\\wiener_training(noise-cancellation)\\dryer\\h2.txt",
 		m,N,FilterSolverType::Accurate);
 	system("pause");
 	return 0;
