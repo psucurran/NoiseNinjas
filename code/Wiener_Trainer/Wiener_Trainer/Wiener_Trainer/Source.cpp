@@ -3,6 +3,7 @@
 #include <Eigen/SVD>
 #include "FilterSolver.h"
 #include <Eigen/Core>
+#include <stdint.h>
 using Eigen::MatrixXd;
 using namespace std;
 using namespace Eigen;
@@ -46,15 +47,21 @@ int main()
 	if (numthreads > 1)
 		Eigen::initParallel();
 
-	unsigned int m = 101;
-	unsigned long N = 100000;
+	uint64_t m;
+	uint64_t N;
+
+	cout << "Enter the size of the filter (m):" << endl;
+	cin >> m;
+	cout << "Enter the size of the input (N):" << endl;
+	cin >> N;
+	
 	//return delimited files!!!
 	FilterSolver solver(
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\f1.txt", 
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\d1.txt", numthreads);
+		"E:\\wiener_training\\calibration_test\\f1.txt",
+		"E:\\wiener_training\\calibration_test\\d1.txt", numthreads);
 	solver.SolveForFilter(
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\h1.txt",
-		m,N,FilterSolverType::Accurate);
+		"E:\\wiener_training\\calibration_test\\h6.txt",
+		m,N,FilterSolverType::Fast);
 	system("pause");
 	return 0;
 }
