@@ -1,1 +1,8 @@
 *.asv
+*.map
+*.out
+*.pp
+*.obj
+*.opt
+makefile
+*.mk
