@@ -1,28 +1,29 @@
 #include "stdlib.h"
 #include "conv.h"
-#include "queue.h"
+
 
 //test save
 
-void convq(Queue *q, float h[])
+Int16 convq(Queue *Qs, float h[])
 {
 	Int16 qindex;
 	Int16 i;
 	float result = 0;
 	Int16 tailUsed = 0;
 	
-	qindex = q->head;
+	qindex = Qs->head;
 	for (i=0; i<MAX_SIZE && !tailUsed; i++)
 	{
-		result += h[i] * (q->Q)[qindex];
+		result += h[i] * (Qs->Q)[qindex];
 		
-		tailUsed = qindex == q->tail;
+		tailUsed = qindex == Qs->tail;
 		
 		if (qindex == MAX_SIZE-1)
 			qindex = 0;
 		else
 			qindex++;
 	}
+	return 0;
 }
 
 // convolution

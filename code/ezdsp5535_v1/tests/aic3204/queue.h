@@ -1,3 +1,7 @@
+#ifndef OURQUEUE
+
+#define OURQUEUE
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "ezdsp5535.h"
@@ -19,3 +23,4 @@ Queue *makeNewQueue();
 Int16 isEmpty(Queue *queue);
 Int16 isFull(Queue *queue);
 
+#endif

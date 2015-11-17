@@ -32,6 +32,12 @@ conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_
 conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_i2s.h
 conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_error.h
 conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_types.h
+conv.obj: ../queue.h
+conv.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h
+conv.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h
+conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h
+conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_i2s.h
+conv.obj: C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h
 
 ../conv.c: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h: 
@@ -65,3 +71,9 @@ C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/a
 C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_i2s.h: 
 C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_error.h: 
 C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/csl_types.h: 
+../queue.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h: 
+C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h: 
+C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_i2s.h: 
+C:/Users/Garrett\ Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h: 
