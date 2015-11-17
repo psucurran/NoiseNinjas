@@ -4,11 +4,25 @@
 
 //test save
 
-Int16 convq(Queue *q, float h[], Int16 len)
+void convq(Queue *q, float h[])
 {
+	Int16 qindex;
+	Int16 i;
+	float result = 0;
+	Int16 tailUsed = 0;
 	
-	
-	return 0;	
+	qindex = q->head;
+	for (i=0; i<MAX_SIZE && !tailUsed; i++)
+	{
+		result += h[i] * (q->Q)[qindex];
+		
+		tailUsed = qindex == q->tail;
+		
+		if (qindex == MAX_SIZE-1)
+			qindex = 0;
+		else
+			qindex++;
+	}
 }
 
 // convolution

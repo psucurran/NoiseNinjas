@@ -262,7 +262,7 @@ Int16 harris_loop_linein( )
             		dequeue(queue_in2l);
             		enqueue(queue_in2l, data_in2l);
             		//conv_out_l = 
-            		conv(queue_in2l->Q, filter, MAX_SIZE);
+            		conv2(queue_in2l, filter);
             	}
             	else
             	{
@@ -273,7 +273,7 @@ Int16 harris_loop_linein( )
             		dequeue(queue_in2r);
             		enqueue(queue_in2r, data_in2r);
             		//conv_out_r = 
-            		conv(queue_in2r->Q, filter, MAX_SIZE);
+            		conv2(queue_in2r, filter);
             	}
             	else
             	{
