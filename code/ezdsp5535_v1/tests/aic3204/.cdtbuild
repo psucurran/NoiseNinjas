@@ -86,6 +86,7 @@
 <listOptionValue builtIn="false" value="&quot;${PROJECT_ROOT}/../../include&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${PROJECT_ROOT}/../../c55xx_csl\inc&quot;"/>
 </option>
+<option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED.1662313993" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED" value="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED.3" valueType="enumerated"/>
 </tool>
 <tool id="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerRelease.1816516906" name="C5500 Linker" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerRelease">
 <option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.linkerID.OUTPUT_FILE.1939808151" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.linkerID.OUTPUT_FILE" value="&quot;aic3204.out&quot;" valueType="string"/>
@@ -105,5 +106,6 @@
 <macros expandEnvironmentMacros="true"/>
 </toolChain>
 </configuration>
+<macros/>
 </project>
 </ManagedProjectBuildInfo>
