@@ -6,7 +6,7 @@ SHELL = cmd.exe
 
 EMPTY := 
 SPACE := $(EMPTY) $(EMPTY)
-CG_TOOL_ROOT := C:/Program Files (x86)/Texas Instruments/ccsv4/tools/compiler/c5500
+CG_TOOL_ROOT := E:/program_files/Texas_Instruments/ccsv4/tools/compiler/c5500
 
 ORDERED_OBJS += \
 $(GEN_CMDS_QUOTED) \
@@ -123,7 +123,7 @@ all: aic3204.out
 aic3204.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Linker'
-	"C:/Program Files (x86)/Texas Instruments/ccsv4/tools/compiler/c5500/bin/cl55" -v5515 -g --diag_warning=225 --ptrdiff_size=16 --memory_model=large -z -m"aic3204.map" --warn_sections -i"C:/Program Files (x86)/Texas Instruments/ccsv4/tools/compiler/c5500/lib" -i"C:/Program Files (x86)/Texas Instruments/ccsv4/tools/compiler/c5500/include" -i"C:/Users/Garrett Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../lib" -i"C:/Users/Garrett Hipkins/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/ccs_v4.0_examples/cslVC5505/Debug" --reread_libs --rom_model -o "aic3204.out" $(ORDERED_OBJS)
+	"E:/program_files/Texas_Instruments/ccsv4/tools/compiler/c5500/bin/cl55" -v5515 -g --diag_warning=225 --ptrdiff_size=16 --memory_model=large -z -m"aic3204.map" --warn_sections -i"E:/program_files/Texas_Instruments/ccsv4/tools/compiler/c5500/lib" -i"E:/program_files/Texas_Instruments/ccsv4/tools/compiler/c5500/include" -i"C:/Users/Sean/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../lib" -i"C:/Users/Sean/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/ccs_v4.0_examples/cslVC5505/Debug" --reread_libs --rom_model -o "aic3204.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

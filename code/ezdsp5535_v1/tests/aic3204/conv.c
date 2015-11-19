@@ -1,46 +1,33 @@
-#include "stdlib.h"
 #include "conv.h"
 
 
-//test save
+//input:
+//Queue q - the queue of the input (mic or aux in)
+//float h - the filter to convolute with
 
-Int16 convq(Queue *Qs, float h[])
+//This function has not yet been tested.
+//There are still concerns with how convoluting
+//Int16s with floats will work
+Int16 convq(Queue *q, float h[])
 {
 	Int16 qindex;
 	Int16 i;
-	float result = 0;
-	Int16 tailUsed = 0;
+	double result = 0;
 	
-	qindex = Qs->head;
-	for (i=0; i<MAX_SIZE && !tailUsed; i++)
+	//go from most recent values to least recent
+	qindex = q->tail;
+	
+	for (i=0; i<MAX_SIZE; i++)
 	{
-		result += h[i] * (Qs->Q)[qindex];
-		
-		tailUsed = qindex == Qs->tail;
-		
-		if (qindex == MAX_SIZE-1)
-			qindex = 0;
+		//tail points to where the next value should go
+		//so we want to go one back to start with
+		//to get the most recent value
+		if (qindex == 0)
+			qindex = MAX_SIZE - 1;
 		else
-			qindex++;
+			qindex--;
+			
+		result += h[i] * (q->Q)[qindex];
 	}
-	return 0;
+	return ((Int16) result);
 }
-
-// convolution
-// we are assuming the size of the two arrays are equal
-// this is wrong
-Int16 conv(Int16 A[], float B[], Int16 len)
-{
-	Int16 i;
-	float retval;
-	retval = 0;
-	
-	for (i = 0; i < len; i++)
-	{
-		retval = retval + ((float) A[i])*B[len - 1 - i];
-	}
-	
-	return(((Int16) retval));	
-}
-
-

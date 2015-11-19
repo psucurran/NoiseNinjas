@@ -8,8 +8,13 @@
 #include "ezdsp5535_i2s.h"
 #include "csl_i2s.h"
 
+//Size of Queue
 #define MAX_SIZE 250
 
+//@todo add in a destructur 
+//and make it so the size of the 
+//queue can be passed in as an argument
+//in the constructor
 typedef struct Queue {
 	Int16 head;
 	Int16 tail;

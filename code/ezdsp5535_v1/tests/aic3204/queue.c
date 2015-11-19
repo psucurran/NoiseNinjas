@@ -1,8 +1,3 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "ezdsp5535.h"
-#include "ezdsp5535_i2s.h"
-#include "csl_i2s.h"
 #include "queue.h"
 
 
@@ -11,19 +6,17 @@ Int16 enqueue(Queue *queue, Int16 x)
 {
 	if(isFull(queue))
 	{
-		printf("Enqueue fail - Queue full");
+		//printf("Enqueue fail - Queue full");
 		return 1;
 	}
+
+	queue->Q[queue->tail] = x;
+	if (queue->tail == (MAX_SIZE - 1))
+		queue->tail = 0;
 	else
-	{
-		queue->Q[queue->tail] = x;
-		if (queue->tail == (MAX_SIZE - 1))
-			queue->tail = 0;
-		else
-			queue->tail++;
-		queue->count++;
-		return 0;
-	}
+		queue->tail++;
+	queue->count++;
+	return 0;
 }
 
 // returns the dequeued element
@@ -31,8 +24,7 @@ void dequeue(Queue *queue)
 {
 	if(isEmpty(queue))
 	{
-		printf("Dequeue fail - Queue empty");
-		return;
+		//printf("Dequeue fail - Queue empty");
 	}
 	else
 	{
@@ -41,7 +33,6 @@ void dequeue(Queue *queue)
 		else
 			queue->head++;
 		queue->count--;
-		return;
 	}
 }
 
