@@ -236,10 +236,10 @@ Int16 harris_loop_linein( )
 	Int16 i = 0;
     Int16 conv_out_l = 0x3fff;
     Int16 conv_out_r = 0x3fff;
-    Int16 filter2[1000];
+    Int16 filter2[MAX_SIZE];
 
     
-    for (i = 0; i<1000; i++)
+    for (i = 0; i<MAX_SIZE; i++)
     	filter2[i] = i;
      
 	configureDSP();
@@ -285,7 +285,7 @@ Int16 harris_loop_linein( )
             	{
             		enqueue(queue_in2r, data_in2r);
             	} 
-            	         	
+            	temp = temp + 1;
             	EZDSP5535_I2S_writeLeft(conv_out_l);
             	EZDSP5535_I2S_writeRight(conv_out_r);
             	
@@ -294,16 +294,11 @@ Int16 harris_loop_linein( )
             	
             }
         }
-        		EZDSP5535_I2S_readRight(&data_in2r);
-            	EZDSP5535_I2S_readLeft(&data_in2l);
-    			EZDSP5535_I2S_writeLeft(conv_out_l);
-            	EZDSP5535_I2S_writeRight(conv_out_r);
-            	
-            	conv_out_l = -conv_out_l;
-            	conv_out_r = -conv_out_r;
+
     }
     			
-
+	EZDSP5535_I2S_writeLeft(temp);
+	
 	cleanUp();
     
     return 0;
