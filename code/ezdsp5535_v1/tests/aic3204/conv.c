@@ -8,11 +8,11 @@
 //This function has not yet been tested.
 //There are still concerns with how convoluting
 //Int16s with floats will work
-Int16 convq(Queue *q, float h[])
+Int16 convq(Queue *q, Int16 *h)
 {
 	Int16 qindex;
 	Int16 i;
-	double result = 0;
+	long result = 0;
 	
 	//go from most recent values to least recent
 	qindex = q->tail;
@@ -27,7 +27,7 @@ Int16 convq(Queue *q, float h[])
 		else
 			qindex--;
 			
-		result += h[i] * (q->Q)[qindex];
+		_smaci(result,h[i],(q->Q)[qindex]);
 	}
 	return ((Int16) result);
 }

@@ -9,6 +9,6 @@
 #include "queue.h"
 #include "stdlib.h"
 
-Int16 convq(Queue *Qs, float h[]);
+Int16 convq(Queue *Qs, Int16 *h);
 
 #endif

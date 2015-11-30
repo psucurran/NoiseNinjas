@@ -9,7 +9,7 @@
 #include "csl_i2s.h"
 
 //Size of Queue
-#define MAX_SIZE 250
+#define MAX_SIZE 1000
 
 //@todo add in a destructur 
 //and make it so the size of the 
