@@ -27,7 +27,7 @@ Int16 convq(Queue *q, Int16 *h)
 		else
 			qindex--;
 			
-		_smaci(result,h[i],(q->Q)[qindex]);
+		_smac(result,h[i],(q->Q)[qindex]);
 	}
 	return ((Int16) result);
 }
