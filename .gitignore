@@ -1,2 +1,13 @@
 *.asv
+<<<<<<< HEAD
 code/ezdsp5535_v1/tests/aic3204/.cdtproject
+=======
+*.map
+*.out
+*.pp
+*.obj
+*.opt
+makefile
+*.mk
+code/ezdsp5535_v1/tests/aic3204/Debug/makefile
+>>>>>>> origin/sean
