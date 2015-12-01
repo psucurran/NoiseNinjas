@@ -256,7 +256,7 @@ Int16 harris_loop_linein( )
  	//value to a large negative value
  	//the idea is to see how fast the signal changes
  	//and measure the loop frequency with an oscilloscope
-    for (sec = 0; sec < 9999999; sec++)
+    for (sec = 0; sec < 30000; sec++)
     {
         for ( msec = 0 ; msec < 1000 ; msec++ )
         {
