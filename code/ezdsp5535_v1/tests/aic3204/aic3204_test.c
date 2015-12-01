@@ -119,9 +119,9 @@ Int16 harris_test( )
     EZDSP5535_I2C_init( );
     
     /* Codec tests */
-    //printf( " -> 1 KHz Tone on Headphone.\n" );
-    //if ( aic3204_tone_headphone( ) )           // Output test
-       // return 1;
+    printf( " -> 1 KHz Tone on Headphone.\n" );
+    if ( aic3204_tone_headphone( ) )           // Output test
+        return 1;
        
     //EZDSP5535_wait( 100 );  // Wait    
     printf( "<-> Harris Audio Loopback from Stereo IN --> to HP OUT\n" );

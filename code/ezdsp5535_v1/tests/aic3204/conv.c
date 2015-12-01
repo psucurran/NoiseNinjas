@@ -12,7 +12,7 @@ Int16 convq(Queue *q, Int16 *h)
 {
 	Int16 qindex;
 	Int16 i;
-	Int16 result = 0;
+	long result = 0;
 	
 	//go from most recent values to least recent
 	qindex = q->tail;
@@ -26,7 +26,8 @@ Int16 convq(Queue *q, Int16 *h)
 			qindex = MAX_SIZE - 1;
 		else
 			qindex--;
-		result += h[i] * (q->Q)[qindex];
+			
+		_smaci(result,h[i],(q->Q)[qindex]);
 	}
-	return ((result / 1000));
+	return ((Int16) result);
 }
