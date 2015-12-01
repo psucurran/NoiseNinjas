@@ -164,7 +164,7 @@ void configureDSP()
     AIC3204_rset( 27, 0x0d );  // BCLK and WCLK are set as o/p; AIC3204(Master)
     AIC3204_rset( 28, 0x00 );  // Data ofset = 0
     AIC3204_rset( 4,  0x03 );  // PLL setting: PLLCLK <- MCLK, CODEC_CLKIN <-PLL CLK
-    AIC3204_rset( 6,  0x07 );  // PLL setting: J=7
+    AIC3204_rset( 6,  0x32 );  // PLL setting: J=7
     AIC3204_rset( 7,  0x06 );  // PLL setting: HI_BYTE(D=1680)
     AIC3204_rset( 8,  0x90 );  // PLL setting: LO_BYTE(D=1680)
     AIC3204_rset( 30, 0x88 );  // For 32 bit clocks per frame in Master mode ONLY
