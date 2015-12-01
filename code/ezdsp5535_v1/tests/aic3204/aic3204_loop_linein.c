@@ -174,10 +174,10 @@ void configureDSP()
     AIC3204_rset( 13, 0x00 );  // Hi_Byte(DOSR) for DOSR = 128 decimal or 0x0080 DAC oversamppling
     AIC3204_rset( 14, 0x80 );  // Lo_Byte(DOSR) for DOSR = 128 decimal or 0x0080
     AIC3204_rset( 20, 0x80 );  // AOSR for AOSR = 128 decimal or 0x0080 for decimation filters 1 to 6
-    AIC3204_rset( 11, 0x82 );  // Power up NDAC and set NDAC value to 2
-    AIC3204_rset( 12, 0x87 );  // Power up MDAC and set MDAC value to 7
-    AIC3204_rset( 18, 0x87 );  // Power up NADC and set NADC value to 7
-    AIC3204_rset( 19, 0x82 );  // Power up MADC and set MADC value to 2
+    AIC3204_rset( 11, 0x81 );  // Power up NDAC and set NDAC value to 2
+    AIC3204_rset( 12, 0x81 );  // Power up MDAC and set MDAC value to 7
+    AIC3204_rset( 18, 0x81 );  // Power up NADC and set NADC value to 7
+    AIC3204_rset( 19, 0x81 );  // Power up MADC and set MADC value to 2
     
     /* DAC ROUTING and Power Up */
     AIC3204_rset( 0,  0x01 );  // Select page 1
