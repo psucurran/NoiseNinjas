@@ -89,7 +89,6 @@
 <option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED.1662313993" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED" value="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.OPT_FOR_SPEED.5" valueType="enumerated"/>
 <option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.KEEP_ASM.38313866" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.KEEP_ASM" value="true" valueType="boolean"/>
 <option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.SOURCE_INTERLIST.90340620" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.SOURCE_INTERLIST" value="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.SOURCE_INTERLIST.C_SRC_INTERLIST" valueType="enumerated"/>
-<option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.PRINTF_SUPPORT.122159531" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.PRINTF_SUPPORT" value="com.ti.ccstudio.buildDefinitions.C5500_4.3.compilerID.PRINTF_SUPPORT.minimal" valueType="enumerated"/>
 </tool>
 <tool id="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerRelease.1816516906" name="C5500 Linker" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerRelease">
 <option id="com.ti.ccstudio.buildDefinitions.C5500_4.3.linkerID.OUTPUT_FILE.1939808151" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.linkerID.OUTPUT_FILE" value="&quot;aic3204.out&quot;" valueType="string"/>

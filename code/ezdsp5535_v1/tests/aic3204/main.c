@@ -62,7 +62,7 @@ void main( void )
     EZDSP5535_init( );
 
     /* Display test ID */
-    //printf( "\nTesting AIC3204...\n");
+    printf( "\nTesting AIC3204...\n");
 
     /* Call test function */
     TestFail = harris_test( );
@@ -71,13 +71,13 @@ void main( void )
     if ( TestFail != 0 )
     {
         /* Print error message */
-        //printf( "     FAIL... error code %d... quitting\n", TestFail );
+        printf( "     FAIL... error code %d... quitting\n", TestFail );
     }
     else
     {
         /* Print pass message */
-        //printf( "    PASS\n" );
-        //printf( "\n***ALL Tests Passed***\n" );
+        printf( "    PASS\n" );
+        printf( "\n***ALL Tests Passed***\n" );
     }
     
     StopTest();

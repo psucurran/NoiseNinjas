@@ -256,12 +256,8 @@ Int16 harris_loop_linein( )
  	//value to a large negative value
  	//the idea is to see how fast the signal changes
  	//and measure the loop frequency with an oscilloscope
-    for (sec = 0; sec < 9999999; sec++)
-    {
-        for ( msec = 0 ; msec < 1000 ; msec++ )
-        {
-            for ( sample = 0 ; sample < 48 ; sample++ )
-            {
+ 	while (1)
+ 	{
             	EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
             	
@@ -277,10 +273,6 @@ Int16 harris_loop_linein( )
             	
             	conv_out_l = -conv_out_l;
             	conv_out_r = -conv_out_r;
-            	
-            }
-        }
-
     }
     			
 	EZDSP5535_I2S_writeLeft(temp);
