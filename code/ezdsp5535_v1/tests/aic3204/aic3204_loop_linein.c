@@ -169,7 +169,7 @@ void configureDSP()
     AIC3204_rset( 8,  0x90 );  // PLL setting: LO_BYTE(D=1680)
     AIC3204_rset( 30, 0x88 );  // For 32 bit clocks per frame in Master mode ONLY
                                // BCLK=DAC_CLK/N =(12288000/8) = 1.536MHz = 32*fs
-    AIC3204_rset( 5,  0x91 );  // PLL setting: Power up PLL, P=1 and R=1
+    AIC3204_rset( 5,  0x94 );  // PLL setting: Power up PLL, P=1 and R=1
     EZDSP5535_waitusec(10000); // Wait for PLL to come up    
     AIC3204_rset( 13, 0x00 );  // Hi_Byte(DOSR) for DOSR = 128 decimal or 0x0080 DAC oversamppling
     AIC3204_rset( 14, 0x80 );  // Lo_Byte(DOSR) for DOSR = 128 decimal or 0x0080
