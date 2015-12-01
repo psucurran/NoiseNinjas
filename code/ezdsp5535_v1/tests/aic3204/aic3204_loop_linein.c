@@ -221,7 +221,6 @@ void cleanUp()
 
 Int16 harris_loop_linein( )
 {
-	Int16 qindex;
     Int16 sec, msec;
     Int16 sample; 
     Int16 data_in2l;
@@ -266,43 +265,11 @@ Int16 harris_loop_linein( )
             	EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
             	
-            	temp = 0;
         		enqueue(queue_in2l, data_in2l);
-
-				
-				//go from most recent values to least recent
-				qindex = queue_in2l->tail;
-				
-				for (i=0; i<MAX_SIZE; i++)
-				{
-					//tail points to where the next value should go
-					//so we want to go one back to start with
-					//to get the most recent value
-					if (qindex == 0)
-						qindex = MAX_SIZE - 1;
-					else
-						qindex--;
-						
-					_smaci(temp,filter2[i],(queue_in2l->Q)[qindex]);
-				}
+        		temp = convq(queue_in2l,filter2);
 
         		enqueue(queue_in2r, data_in2r);
-				
-				//go from most recent values to least recent
-				qindex = queue_in2r->tail;
-				
-				for (i=0; i<MAX_SIZE; i++)
-				{
-					//tail points to where the next value should go
-					//so we want to go one back to start with
-					//to get the most recent value
-					if (qindex == 0)
-						qindex = MAX_SIZE - 1;
-					else
-						qindex--;
-						
-					_smaci(temp,filter2[i],(queue_in2r->Q)[qindex]);
-				}
+        		temp = convq(queue_in2r,filter2);
 
             	temp = temp + 1;
             	EZDSP5535_I2S_writeLeft(conv_out_l);
