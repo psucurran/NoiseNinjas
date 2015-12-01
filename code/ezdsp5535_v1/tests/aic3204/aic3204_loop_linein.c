@@ -265,26 +265,12 @@ Int16 harris_loop_linein( )
             	EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
             	
-            	if(isFull(queue_in2l))
-            	{
-            		dequeue(queue_in2l);
-            		enqueue(queue_in2l, data_in2l);
-            		temp = convq(queue_in2l,filter2);
-            	}
-            	else
-            	{
-            		enqueue(queue_in2l, data_in2l);
-            	}
-            	if(isFull(queue_in2r))
-            	{
-            		dequeue(queue_in2r);
-            		enqueue(queue_in2r, data_in2r);
-            		temp = convq(queue_in2r,filter2);
-            	}
-            	else
-            	{
-            		enqueue(queue_in2r, data_in2r);
-            	} 
+        		enqueue(queue_in2l, data_in2l);
+        		temp = convq(queue_in2l,filter2);
+
+        		enqueue(queue_in2r, data_in2r);
+        		temp = convq(queue_in2r,filter2);
+
             	temp = temp + 1;
             	EZDSP5535_I2S_writeLeft(conv_out_l);
             	EZDSP5535_I2S_writeRight(conv_out_r);
