@@ -57,9 +57,6 @@
 <resourceConfiguration exclude="false" id="com.ti.ccstudio.buildDefinitions.C5500.Debug.354775026./aic3204/aic3204_tone_headphone.c" name="aic3204_tone_headphone.c" rcbsApplicability="disable" resourcePath="/aic3204/aic3204_tone_headphone.c" toolsToInvoke="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.compilerDebug.159795225./aic3204/aic3204_tone_headphone.c">
 <tool id="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.compilerDebug.159795225./aic3204/aic3204_tone_headphone.c" name="C5500 Compiler" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.compilerDebug.159795225"/>
 </resourceConfiguration>
-<resourceConfiguration exclude="false" id="com.ti.ccstudio.buildDefinitions.C5500.Debug.354775026./aic3204/lnkx.cmd" name="lnkx.cmd" rcbsApplicability="disable" resourcePath="/aic3204/lnkx.cmd" toolsToInvoke="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerDebug.1793096313./aic3204/lnkx.cmd">
-<tool id="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerDebug.1793096313./aic3204/lnkx.cmd" name="C5500 Linker" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerDebug.1793096313"/>
-</resourceConfiguration>
 </configuration>
 <configuration artifactExtension="out" artifactName="aic3204" description="" id="com.ti.ccstudio.buildDefinitions.C5500.Release.1391936437" name="Release" parent="com.ti.ccstudio.buildDefinitions.C5500.Release">
 <toolChain id="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.ReleaseToolchain.1799718346" name="TI Code Generation Tools" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.ReleaseToolchain" targetTool="com.ti.ccstudio.buildDefinitions.C5500_4.3.exe.linkerRelease.1816516906">

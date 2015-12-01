@@ -77,12 +77,12 @@ Int16 aic3204_tone_headphone( )
     AIC3204_rset( 27, 0x0d );  // BCLK and WCLK are set as o/p; AIC3204(Master)
     AIC3204_rset( 28, 0x00 );  // Data ofset = 0
     AIC3204_rset( 4,  0x03 );  // PLL setting: PLLCLK <- MCLK, CODEC_CLKIN <-PLL CLK
-    AIC3204_rset( 6,  0x07 );  // PLL setting: J=7
+    AIC3204_rset( 6,  0x3F );  // PLL setting: J=7 CHANGE to 63
     AIC3204_rset( 7,  0x06 );  // PLL setting: HI_BYTE(D=1680)
     AIC3204_rset( 8,  0x90 );  // PLL setting: LO_BYTE(D=1680)
-    AIC3204_rset( 30, 0x88 );  // For 32 bit clocks per frame in Master mode ONLY
+    AIC3204_rset( 30, 0x81 );  // For 32 bit clocks per frame in Master mode ONLY was 88
                                // BCLK=DAC_CLK/N =(12288000/8) = 1.536MHz = 32*fs
-    AIC3204_rset( 5,  0x91 );  // PLL setting: Power up PLL, P=1 and R=1
+    AIC3204_rset( 5,  0x94 );  // PLL setting: Power up PLL, P=1 and R=1 CHANGE R to 4
     EZDSP5535_waitusec(10000); // Wait for PLL to come up    
     AIC3204_rset( 13, 0x00 );  // Hi_Byte(DOSR) for DOSR = 128 decimal or 0x0080 DAC oversamppling
     AIC3204_rset( 14, 0x80 );  // Lo_Byte(DOSR) for DOSR = 128 decimal or 0x0080
