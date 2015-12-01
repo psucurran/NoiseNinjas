@@ -1,6 +1,6 @@
 ;*******************************************************************************
 ;* TMS320C55x C/C++ Codegen                                          PC v4.3.8 *
-;* Date/Time created: Mon Nov 30 20:31:46 2015                                 *
+;* Date/Time created: Mon Nov 30 20:39:18 2015                                 *
 ;*******************************************************************************
 	.compiler_opts --hll_source=on --mem_model:code=flat --mem_model:data=large --silicon_core_3_3 --symdebug:dwarf 
 	.mmregs
@@ -157,7 +157,7 @@ $C$DW$12	.dwtag  DW_TAG_variable, DW_AT_name("$P$T0$1")
 	.dwattr $C$DW$12, DW_AT_decl_file("../aic3204_tone_headphone.c")
 	.dwattr $C$DW$12, DW_AT_decl_line(0x36)
 	.dwattr $C$DW$12, DW_AT_decl_column(0x0b)
-;	E:\Program Files\Texas Instruments\CCS\ccsv4\tools\compiler\c5500\bin\opt55.exe C:\\Users\\Sean\\AppData\\Local\\Temp\\024602 C:\\Users\\Sean\\AppData\\Local\\Temp\\024604 
+;	E:\Program Files\Texas Instruments\CCS\ccsv4\tools\compiler\c5500\bin\opt55.exe C:\\Users\\Sean\\AppData\\Local\\Temp\\085842 C:\\Users\\Sean\\AppData\\Local\\Temp\\085844 
 	.sect	".text"
 	.global	_aic3204_tone_headphone
 
@@ -1047,7 +1047,7 @@ $C$DW$70	.dwtag  DW_TAG_TI_branch
                                         ; return occurs
 
 $C$DW$71	.dwtag  DW_TAG_TI_loop
-	.dwattr $C$DW$71, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L3:1:1448933506")
+	.dwattr $C$DW$71, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L3:1:1448933958")
 	.dwattr $C$DW$71, DW_AT_TI_begin_file("../aic3204_tone_headphone.c")
 	.dwattr $C$DW$71, DW_AT_TI_begin_line(0x80)
 	.dwattr $C$DW$71, DW_AT_TI_end_line(0x8d)
@@ -1059,7 +1059,7 @@ $C$DW$73	.dwtag  DW_TAG_TI_loop_range
 	.dwattr $C$DW$73, DW_AT_high_pc($C$DW$L$_aic3204_tone_headphone$12$E)
 
 $C$DW$74	.dwtag  DW_TAG_TI_loop
-	.dwattr $C$DW$74, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L4:2:1448933506")
+	.dwattr $C$DW$74, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L4:2:1448933958")
 	.dwattr $C$DW$74, DW_AT_TI_begin_file("../aic3204_tone_headphone.c")
 	.dwattr $C$DW$74, DW_AT_TI_begin_line(0x82)
 	.dwattr $C$DW$74, DW_AT_TI_end_line(0x8c)
@@ -1071,7 +1071,7 @@ $C$DW$76	.dwtag  DW_TAG_TI_loop_range
 	.dwattr $C$DW$76, DW_AT_high_pc($C$DW$L$_aic3204_tone_headphone$11$E)
 
 $C$DW$77	.dwtag  DW_TAG_TI_loop
-	.dwattr $C$DW$77, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L5:3:1448933506")
+	.dwattr $C$DW$77, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L5:3:1448933958")
 	.dwattr $C$DW$77, DW_AT_TI_begin_file("../aic3204_tone_headphone.c")
 	.dwattr $C$DW$77, DW_AT_TI_begin_line(0x84)
 	.dwattr $C$DW$77, DW_AT_TI_end_line(0x8b)
@@ -1086,7 +1086,7 @@ $C$DW$78	.dwtag  DW_TAG_TI_loop_range
 
 
 $C$DW$79	.dwtag  DW_TAG_TI_loop
-	.dwattr $C$DW$79, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L1:1:1448933506")
+	.dwattr $C$DW$79, DW_AT_name("C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204_tone_headphone.asm:$C$L1:1:1448933958")
 	.dwattr $C$DW$79, DW_AT_TI_begin_file("../aic3204_tone_headphone.c")
 	.dwattr $C$DW$79, DW_AT_TI_begin_line(0x36)
 	.dwattr $C$DW$79, DW_AT_TI_end_line(0x36)
