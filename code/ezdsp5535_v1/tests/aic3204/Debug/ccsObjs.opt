@@ -1,0 +1,1 @@
+"./queue.obj" "./micread.obj" "./main.obj" "./conv.obj" "./aic3204_tone_headphone.obj" "./aic3204_test.obj" "./aic3204_loop_linein.obj" -l"cslVC5505.lib" -l"ezdsp5535bsl.lib" -l"rts55x.lib" "../lnkx.cmd" 

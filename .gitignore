@@ -1,1 +1,9 @@
 *.asv
+*.map
+*.out
+*.pp
+*.obj
+*.opt
+makefile
+*.mk
+code/ezdsp5535_v1/tests/aic3204/Debug/makefile
