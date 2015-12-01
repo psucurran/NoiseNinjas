@@ -263,14 +263,11 @@ Int16 harris_loop_linein( )
             for ( sample = 0 ; sample < 48 ; sample++ )
             {
             	EZDSP5535_I2S_readRight(&data_in2r);
-            	//EZDSP5535_I2S_readLeft(&data_in2l);
+            	EZDSP5535_I2S_readLeft(&data_in2l);
             	
-        		//enqueue(queue_in2l, data_in2l);
-        		//temp = convq(queue_in2l,filter2);
+        		enqueue(queue_in2l, data_in2l);
+        		temp = convq(queue_in2l,filter2);
 
-        		enqueue(queue_in2r, data_in2r);
-        		temp = convq(queue_in2r,filter2);
-        		
         		enqueue(queue_in2r, data_in2r);
         		temp = convq(queue_in2r,filter2);
 
