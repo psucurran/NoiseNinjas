@@ -2,38 +2,24 @@
 
 
 // return 0 on success, 1 on fail
-Int16 enqueue(Queue *queue, Int16 x)
+void enqueue(Queue *queue, Int16 x)
 {
-	if(isFull(queue))
-	{
-		//printf("Enqueue fail - Queue full");
-		return 1;
-	}
-
 	queue->Q[queue->tail] = x;
 	if (queue->tail == (MAX_SIZE - 1))
 		queue->tail = 0;
 	else
 		queue->tail++;
 	queue->count++;
-	return 0;
 }
 
 // returns the dequeued element
 void dequeue(Queue *queue)
 {
-	if(isEmpty(queue))
-	{
-		//printf("Dequeue fail - Queue empty");
-	}
+	if(queue->head == (MAX_SIZE - 1))
+		queue->head = 0;
 	else
-	{
-		if(queue->head == (MAX_SIZE - 1))
-			queue->head = 0;
-		else
-			queue->head++;
-		queue->count--;
-	}
+		queue->head++;
+	queue->count--;
 }
 
 Queue *makeNewQueue()

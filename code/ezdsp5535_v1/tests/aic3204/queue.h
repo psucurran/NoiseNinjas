@@ -22,7 +22,7 @@ typedef struct Queue {
 	Int16 Q[MAX_SIZE];
 } Queue;
 
-Int16 enqueue(Queue *queue, Int16 x);
+void enqueue(Queue *queue, Int16 x);
 void dequeue(Queue *queue);
 Queue *makeNewQueue();
 Int16 isEmpty(Queue *queue);
