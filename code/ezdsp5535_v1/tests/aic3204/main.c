@@ -60,7 +60,6 @@ void main( void )
 {
     /* Initialize BSL */
     EZDSP5535_init( );
-    EZDSP5535_SAR_init();
 
     /* Display test ID */
     printf( "\nTesting AIC3204...\n");
