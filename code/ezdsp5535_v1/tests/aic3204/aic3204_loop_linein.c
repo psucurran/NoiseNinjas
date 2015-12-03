@@ -129,6 +129,8 @@ void cleanUp()
 
 Int16 harris_loop_linein( )
 {
+	Int16 key;
+	
     Int16 sec, msec;
     Int16 sample; 
     Int16 data_in2l;
@@ -191,16 +193,21 @@ Int16 harris_loop_linein( )
         		conv_out_r = convq(queue_in2r,filter);
 
 				
+				key = EZDSP5535_SAR_getKey();
+				if (key == SW1)
+				{
+					
+				
 				//if (EZDSP5535_SAR_getKey( ) == SW1)
 				//{
 					EZDSP5535_I2S_writeLeft(conv_out_l);
 					EZDSP5535_I2S_writeRight(conv_out_r);
-				//}
-				//else
-				//{
-				//	EZDSP5535_I2S_writeLeft(data_in2l);
-				//	EZDSP5535_I2S_writeRight(data_in2r);
-				//}
+				}
+				else
+				{
+					EZDSP5535_I2S_writeLeft(data_in2l);
+					EZDSP5535_I2S_writeRight(data_in2r);
+				}
             }
         }
 

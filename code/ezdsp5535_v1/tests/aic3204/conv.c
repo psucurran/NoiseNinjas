@@ -29,5 +29,5 @@ Int16 convq(Queue *q, Int16 *h)
 			
 		result += (h[i] * (q->Q)[qindex] );
 	}
-	return ((Int16) (result/800));
+	return ((Int16) (result/200));
 }
