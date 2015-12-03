@@ -45,6 +45,7 @@
 #include "queue.h"
 #include "micread.h"
 #include "conv.h"
+#include "ezdsp5535_sar.h"
 
 extern Int16 AIC3204_rset( Uint16 regnum, Uint16 regval);
 
@@ -241,14 +242,10 @@ Int16 harris_loop_linein( )
     
     for (i = 0; i<MAX_SIZE; i++)
     {
-    	if (i < 75)
-    		filter2[i] = 0;
-    	else if (i < 100)
-    		filter2[i] = i-75;
-    	else if (i < 125)
-    		filter2[i] = 125-i;
-    	else
-    		filter2[i] = 0;
+    	if (i < MAX_SIZE/2)
+    		filter2[i] = i;
+    	else 
+    		filter2[i] = MAX_SIZE - i;
     }
      
 	configureDSP();
@@ -273,28 +270,41 @@ Int16 harris_loop_linein( )
             {
             	EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
+            	//EZDSP5535_waitusec(500);
+            	EZDSP5535_I2S_writeLeft(data_in2l);		
+     		    EZDSP5535_I2S_writeRight(data_in2r);
             	
-        		enqueue(queue_in2l, data_in2l);
+            	//printf("%d\n", data_in2l);
+            	
+        		/*enqueue(queue_in2l, data_in2l);
         		templ = convq(queue_in2l,filter2);
 
         		enqueue(queue_in2r, data_in2r);
         		tempr = convq(queue_in2r,filter2);
 
-            	templ = templ + 1;
-            	tempr = tempr + 1;
-            	EZDSP5535_I2S_writeLeft(conv_out_l);
-            	EZDSP5535_I2S_writeRight(conv_out_r);
+            	//templ = templ + 1;
+            	//tempr = tempr + 1;
             	
-            	conv_out_l = -conv_out_l;
-            	conv_out_r = -conv_out_r;
+            	// if either button is held in
+            	if (EZDSP5535_SAR_getKey() == SW1)
+            	{
+	            	EZDSP5535_I2S_writeLeft(templ);
+     		       	EZDSP5535_I2S_writeRight(tempr);
+            	}
+            	else
+            	{
+            		EZDSP5535_I2S_writeLeft(data_in2l);		
+     		       	EZDSP5535_I2S_writeRight(data_in2r);
+            	}*/
             	
+            	//conv_out_l = -conv_out_l;
+            	//conv_out_r = -conv_out_r;           	
             }
         }
-
     }
     			
-	EZDSP5535_I2S_writeLeft(templ);
-	EZDSP5535_I2S_writeRight(templ);
+	//EZDSP5535_I2S_writeLeft(templ);
+	//EZDSP5535_I2S_writeRight(templ);
 	
 	cleanUp();
     
