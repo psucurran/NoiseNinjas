@@ -256,7 +256,7 @@ Int16 harris_loop_linein( )
     
     queue_in2l = makeNewQueue();
     queue_in2r = makeNewQueue();
-    x = 1;
+    x = 66;
  
  	//note these "secs" "msec" have not been confirmed to have any meeting
  	//we have no idea the speed at which these loops run right now
