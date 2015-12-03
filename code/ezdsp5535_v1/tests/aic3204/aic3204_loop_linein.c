@@ -239,7 +239,7 @@ Int16 harris_loop_linein( )
     Int16 conv_out_l = 0x3fff;
     Int16 conv_out_r = 0x3fff;
     Int16 filter2[MAX_SIZE];
-    Int16 x = 0;
+    Int16 x;
     Int16 bestOut = 30000;
     Int16 bestX;
 
@@ -256,6 +256,7 @@ Int16 harris_loop_linein( )
     
     queue_in2l = makeNewQueue();
     queue_in2r = makeNewQueue();
+    x = 1;
  
  	//note these "secs" "msec" have not been confirmed to have any meeting
  	//we have no idea the speed at which these loops run right now
@@ -266,26 +267,32 @@ Int16 harris_loop_linein( )
  	//value to a large negative value
  	//the idea is to see how fast the signal changes
  	//and measure the loop frequency with an oscilloscope
-    for (sec = 0; sec < 1; sec++)
+    for (sec = 0; sec < 10000; sec++)
     {
         for ( msec = 0 ; msec < 1000 ; msec++ )
         {
             for ( sample = 0 ; sample < 48 ; sample++ )
             {
             	EZDSP5535_I2S_readRight(&data_in2r);
-            	EZDSP5535_I2S_readLeft(&data_in2l);
-            	enqueue(queue_in2r, data_in2r);
-            	templ = convq(queue_in2r,filter2);
-            	tempr = convq(queue_in2r,filter2);           	
+            	EZDSP5535_I2S_readLeft(&data_in2l);           	
             	if (!isFull(queue_in2l))
             	{
             		enqueue(queue_in2l, data_in2l);
-        			EZDSP5535_I2S_writeLeft(data_in2l);			      		
+        			//EZDSP5535_I2S_writeLeft(data_in2l);			      		
+            	}
+            	if (!isFull(queue_in2r))
+            	{
+            		enqueue(queue_in2r, data_in2r);
+            		//EZDSP5535_I2S_writeRight(data_in2r);
             	}            	
-        		else
+        		else if (isFull(queue_in2l) && isFull(queue_in2r))
         		{
         			dequeue(queue_in2l);
+        			dequeue(queue_in2r);
         			enqueue(queue_in2l, data_in2l);
+        			enqueue(queue_in2r, data_in2r);
+        			templ = convq(queue_in2l,filter2);
+            		tempr = convq(queue_in2r,filter2);
 	        		if (((queue_in2l->tail) - x) < 0)
 	        		{
 	        			data_in2l = queue_in2l->Q[MAX_SIZE - x];
@@ -294,42 +301,26 @@ Int16 harris_loop_linein( )
 	        		{
 	        			data_in2l = queue_in2l->Q[(queue_in2l->tail) - x];
 	        		}
+	        		if (((queue_in2r->tail) - x) < 0)
+	        		{
+	        			data_in2r = queue_in2r->Q[MAX_SIZE - x];
+	        		}
+	        		else
+	        		{
+	        			data_in2r = queue_in2r->Q[(queue_in2r->tail) - x];
+	        		}
 	        			
 	        		data_in2l = -data_in2l;
-	            	EZDSP5535_I2S_writeLeft(data_in2l);		
-	     		    //EZDSP5535_I2S_writeRight(data_in2r));
-	     		    EZDSP5535_I2S_readRight(&data_in2r);            	
-	            	if (abs(data_in2r) < abs(bestOut) && data_in2r != 0)
-	            	{
-	            		bestX = x;
-	            		bestOut = data_in2r;
-	            	}
-	            	x++;
-	            	if (x > 100)
-	            		x = 0;
+	        		data_in2r = -data_in2r;
+	            	          	
         		}
-            	
-            	templ = templ + 1;
-            	tempr = tempr + 1;
-            	
-            	// if either button is held in
-            	/*if (EZDSP5535_SAR_getKey() == SW1)
-            	{
-	            	EZDSP5535_I2S_writeLeft(templ);
-     		       	EZDSP5535_I2S_writeRight(tempr);
-            	}
-            	else
-            	{
-            		EZDSP5535_I2S_writeLeft(data_in2l);		
-     		       	EZDSP5535_I2S_writeRight(data_in2r);
-            	}*/
-            	
-            	//conv_out_l = -conv_out_l;
-            	//conv_out_r = -conv_out_r;           	
+        	EZDSP5535_I2S_writeLeft(data_in2l);		
+	        EZDSP5535_I2S_writeRight(data_in2r);  
+	        //conv_out_l = -conv_out_l;
+	        //conv_out_r = -conv_out_r;	           	       	
             }
         }
     }
-    printf("%d %d\n", bestOut, bestX);
 	EZDSP5535_I2S_writeLeft(templ);
 	EZDSP5535_I2S_writeRight(tempr);
 	

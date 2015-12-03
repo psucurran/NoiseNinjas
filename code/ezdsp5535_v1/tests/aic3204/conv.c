@@ -30,5 +30,5 @@ Int16 convq(Queue *q, Int16 *h)
 		//_smaci(result,h[i],(q->Q)[qindex]);
 		result += ((h[i]*(q->Q)[qindex]));
 	}
-	return ((result)/2500);
+	return ((Int16)(result/2500));
 }
