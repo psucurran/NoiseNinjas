@@ -3,6 +3,7 @@
 #include <Eigen/SVD>
 #include "FilterSolver.h"
 #include <Eigen/Core>
+#include <stdint.h>
 using Eigen::MatrixXd;
 using namespace std;
 using namespace Eigen;
@@ -41,19 +42,25 @@ void WienerTrainerDemo2()
 
 int main()
 {
-	int numthreads = 8;
+	int numthreads = 10;
 	omp_set_num_threads(numthreads);
 	if (numthreads > 1)
 		Eigen::initParallel();
 
-	unsigned int m = 101;
-	unsigned long N = 100000;
+	uint64_t m;
+	uint64_t N;
+
+	cout << "Enter the size of the filter (m):" << endl;
+	cin >> m;
+	cout << "Enter the size of the input (N):" << endl;
+	cin >> N;
+	
 	//return delimited files!!!
 	FilterSolver solver(
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\f1.txt", 
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\d1.txt", numthreads);
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\downsampled-dyrer2.out",
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\downsampled-speaker2.out", numthreads);
 	solver.SolveForFilter(
-		"C:\\Users\\Sean\\Documents\\GitHub\\NoiseNinjas\\code\\Wiener_Trainer\\Wiener_Trainer\\h1.txt",
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\h2.out",
 		m,N,FilterSolverType::Accurate);
 	system("pause");
 	return 0;

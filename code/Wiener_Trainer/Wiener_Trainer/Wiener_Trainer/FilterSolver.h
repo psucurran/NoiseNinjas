@@ -19,7 +19,7 @@ public:
 		this->numthreads = numthreads;
 	}
 
-	void SolveForFilter(const string &houtput, unsigned int m, unsigned long N,
+	void SolveForFilter(const string &houtput, uint64_t m, uint64_t N,
 		FilterSolverType solveType = Accurate)
 	{
 		SolveForFilter(ffile,dfile,N,m,houtput,numthreads,solveType);
@@ -30,7 +30,7 @@ public:
 	//dfile - desired output in return delimited file
 	//h (out) - computed filter, allocated before function call
 	static void SolveForFilter(const string &ffile, const string &dfile, 
-		unsigned long N, unsigned int filterSize, const string &houtput, unsigned int numthreads,
+		uint64_t N, uint64_t filterSize, const string &houtput, unsigned int numthreads,
 		FilterSolverType solveType = Accurate)
 	{
 		cout << "Filter Solver Started!" << endl;
@@ -70,7 +70,8 @@ public:
 			string line;
 			if (myfile.is_open())
 			{
-				for (unsigned int i = 0; getline(myfile, line); i++)
+				for (uint64_t i = 0; i<filterSize-1;i++,getline(myfile,line));
+				for (uint64_t i = 0; getline(myfile, line) && i<N-filterSize+1; i++)
 					d(i, 0) = stof(line);
 			}
 
@@ -94,7 +95,8 @@ public:
 			string line;
 			if (myfile.is_open())
 			{
-				for (unsigned int i = 0; getline(myfile, line); i++)
+				for (uint64_t i = 0; i<filterSize-1;i++,getline(myfile,line));
+				for (uint64_t i = 0; getline(myfile, line) && i<N-filterSize+1; i++)
 					d(i, 0) = stof(line);
 			}
 
@@ -110,7 +112,7 @@ public:
 		{
 			fout << h(i, 0);
 			if (i != h.rows() - 1)
-				fout << "\n";
+				fout << ",";
 		}
 		fout.close();
 	}

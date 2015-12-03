@@ -7,21 +7,22 @@
 %talk in noisy environments, which we can then try to filter.
 
 speaker = 'sound_clips/voice1.mp3';
-background = 'sound_clips/construction.mp3';
-speakerScale = 1;
-backgroundScale = 1/4;
+background = 'sound_clips/dryer1.mp3';
+speakerScale = 1/2;
+backgroundScale = 1;
 
 [speakerY,speakerFS] = audioread(speaker);
 [backgroundY,backgroundFS] = audioread(background);
 
 speakerY = speakerY*speakerScale;
+dims = size(speakerY);
+dimb = size(backgroundY);
 backgroundY = backgroundY*backgroundScale;
 
 if (backgroundFS ~= speakerFS)
     display('sound clips not compatible!');
 else
-    dims = size(speakerY);
-    dimb = size(backgroundY);
+    
     if(dims(1)>dimb(1))
         mashedSound = speakerY;
     else
@@ -29,7 +30,7 @@ else
     end;
     for i=1:min(dims(1),dimb(1))
         for j=1:min(dims(2),dimb(2))
-            if(dims(1)>dimb(2))
+            if(dims(1)>dimb(1))
                 next = backgroundY(i,j);
             else
                 next = speakerY(i,j);
