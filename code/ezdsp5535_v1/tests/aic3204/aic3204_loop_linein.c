@@ -241,7 +241,7 @@ Int16 harris_loop_linein( )
     Int16 x = 0;
     Int16 index;
     Int16 bestIn = 30000;
-    Int16 bestX;
+    Int16 bestX = 0;
 
     
     for (i = 0; i<MAX_SIZE; i++)
@@ -277,13 +277,12 @@ Int16 harris_loop_linein( )
             	if (!isFull(queue_in2l))
             	{
             		enqueue(queue_in2l, data_in2l);
-        			enqueue(queue_in2r, data_in2r);
-        			EZDSP5535_I2S_writeLeft(data_in2l);
-        			      		
+        			EZDSP5535_I2S_writeLeft(data_in2l);			      		
             	}
+            	enqueue(queue_in2r, data_in2r);
             	templ = convq(queue_in2l,filter2);
             	tempr = convq(queue_in2r,filter2);
-        		if (isFull(queue_in2l))
+        		else if (isFull(queue_in2l))
         		{
         			dequeue(queue_in2l);
         			enqueue(queue_in2l, data_in2l);
@@ -293,7 +292,7 @@ Int16 harris_loop_linein( )
 	        		}
 	        		else
 	        		{
-	        			data_in2l = queue_in2l->Q[(queue_in2l->tail - x)];
+	        			data_in2l = queue_in2l->Q[(queue_in2l->tail) - x];
 	        		}
 	        			
 	        		data_in2l = -data_in2l;
