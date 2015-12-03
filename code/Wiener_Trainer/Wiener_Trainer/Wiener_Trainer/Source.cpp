@@ -57,10 +57,10 @@ int main()
 	
 	//return delimited files!!!
 	FilterSolver solver(
-		"E:\\wiener_training(noise-cancellation)\\dryer\\f.txt",
-		"E:\\wiener_training(noise-cancellation)\\dryer\\d.txt", numthreads);
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\downsampled-dyrer2.out",
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\downsampled-speaker2.out", numthreads);
 	solver.SolveForFilter(
-		"E:\\wiener_training(noise-cancellation)\\dryer\\h2.txt",
+		"C:\\Users\\Sean\\Google Drive\\Documents\\Senior\\cmpen 482W\\boardfilters\\dryer\\h2.out",
 		m,N,FilterSolverType::Accurate);
 	system("pause");
 	return 0;

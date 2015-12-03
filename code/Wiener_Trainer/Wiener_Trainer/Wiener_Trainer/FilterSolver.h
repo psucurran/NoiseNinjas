@@ -112,7 +112,7 @@ public:
 		{
 			fout << h(i, 0);
 			if (i != h.rows() - 1)
-				fout << "\n";
+				fout << ",";
 		}
 		fout.close();
 	}
