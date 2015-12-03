@@ -40,7 +40,6 @@
 #include "stdio.h"
 #include "ezdsp5535.h"
 
-extern Int16 aic3204_test( );
 extern Int16 harris_test( );
 
 int  TestFail    = (int)-1;   
@@ -62,7 +61,6 @@ void main( void )
     EZDSP5535_init( );
 
     /* Display test ID */
-    printf( "\nTesting AIC3204...\n");
 
     /* Call test function */
     TestFail = harris_test( );
