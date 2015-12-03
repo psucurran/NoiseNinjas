@@ -288,7 +288,7 @@ Int16 harris_loop_linein( )
         			enqueue(queue_in2l, data_in2l);
 	        		if (((queue_in2l->tail) - x) < 0)
 	        		{
-	        			data_in2l = queue_in2l->Q[MAX_SIZE + x];
+	        			data_in2l = queue_in2l->Q[MAX_SIZE - x];
 	        		}
 	        		else
 	        		{
