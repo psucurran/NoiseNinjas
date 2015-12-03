@@ -39,6 +39,7 @@
 
 #include "stdio.h"
 #include "ezdsp5535.h"
+#include "ezdsp5535_sar.h"
 
 extern Int16 aic3204_test( );
 extern Int16 harris_test( );
