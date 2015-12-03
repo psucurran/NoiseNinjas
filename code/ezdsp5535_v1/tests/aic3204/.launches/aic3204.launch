@@ -15,7 +15,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.core.MRU_PROGRAM_NAME" value="C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204.out"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="aic3204"/>
 <stringAttribute key="CCEDebugOptions.CPU_NAME" value="Texas Instruments XDS100v2 USB Emulator_0/C55xx"/>
-<stringAttribute key="com.ti.ccstudio.debug.core.MRU_MODULES" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;modules&gt;&#13;&#10;&lt;module name=&quot;C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204.out&quot; time=&quot;Wed Dec 02 20:48:54 EST 2015&quot; time_long=&quot;1449107334946&quot;/&gt;&#13;&#10;&lt;/modules&gt;&#13;&#10;"/>
+<stringAttribute key="com.ti.ccstudio.debug.core.MRU_MODULES" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;modules&gt;&#13;&#10;&lt;module name=&quot;C:\Users\Sean\Documents\GitHub\NoiseNinjas\code\ezdsp5535_v1\tests\aic3204\Release\aic3204.out&quot; time=&quot;Wed Dec 02 20:58:01 EST 2015&quot; time_long=&quot;1449107881860&quot;/&gt;&#13;&#10;&lt;/modules&gt;&#13;&#10;"/>
 <stringAttribute key="org.eclipse.cdt.launch.GLOBAL_VARIABLES" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;globalVariableList/&gt;&#13;&#10;"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Release/aic3204.out"/>
 <stringAttribute key="CCEDebugOptions.CPU_ISA" value="TMS320C55XX"/>
