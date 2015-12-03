@@ -38,6 +38,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "stdio.h"
+#include "stdlib.h"
 #include "ezdsp5535.h"
 #include "ezdsp5535_i2s.h"
 #include "csl_i2s.h"
@@ -239,9 +240,8 @@ Int16 harris_loop_linein( )
     Int16 conv_out_r = 0x3fff;
     Int16 filter2[MAX_SIZE];
     Int16 x = 0;
-    Int16 index;
-    Int16 bestIn = 30000;
-    Int16 bestX = 0;
+    Int16 bestOut = 30000;
+    Int16 bestX;
 
     
     for (i = 0; i<MAX_SIZE; i++)
@@ -272,17 +272,17 @@ Int16 harris_loop_linein( )
         {
             for ( sample = 0 ; sample < 48 ; sample++ )
             {
-            	//EZDSP5535_I2S_readRight(&data_in2r);
-            	EZDSP5535_I2S_readLeft(&data_in2l);           	
+            	EZDSP5535_I2S_readRight(&data_in2r);
+            	EZDSP5535_I2S_readLeft(&data_in2l);
+            	enqueue(queue_in2r, data_in2r);
+            	templ = convq(queue_in2r,filter2);
+            	tempr = convq(queue_in2r,filter2);           	
             	if (!isFull(queue_in2l))
             	{
             		enqueue(queue_in2l, data_in2l);
         			EZDSP5535_I2S_writeLeft(data_in2l);			      		
-            	}
-            	enqueue(queue_in2r, data_in2r);
-            	templ = convq(queue_in2l,filter2);
-            	tempr = convq(queue_in2r,filter2);
-        		else if (isFull(queue_in2l))
+            	}            	
+        		else
         		{
         			dequeue(queue_in2l);
         			enqueue(queue_in2l, data_in2l);
@@ -299,10 +299,10 @@ Int16 harris_loop_linein( )
 	            	EZDSP5535_I2S_writeLeft(data_in2l);		
 	     		    //EZDSP5535_I2S_writeRight(data_in2r));
 	     		    EZDSP5535_I2S_readRight(&data_in2r);            	
-	            	if (data_in2r < bestIn && data_in2r != 0)
+	            	if (abs(data_in2r) < abs(bestOut) && data_in2r != 0)
 	            	{
 	            		bestX = x;
-	            		bestIn = data_in2r;
+	            		bestOut = data_in2r;
 	            	}
 	            	x++;
 	            	if (x > 100)
@@ -329,7 +329,7 @@ Int16 harris_loop_linein( )
             }
         }
     }
-    printf("%d %d\n", bestIn, bestX);
+    printf("%d %d\n", bestOut, bestX);
 	EZDSP5535_I2S_writeLeft(templ);
 	EZDSP5535_I2S_writeRight(tempr);
 	
