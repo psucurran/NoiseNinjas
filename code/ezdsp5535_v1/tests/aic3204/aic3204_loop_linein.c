@@ -270,7 +270,9 @@ Int16 harris_loop_linein( )
             {
             	EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
-            	//EZDSP5535_waitusec(500);
+            	data_in2l = -data_in2l;
+            	data_in2r = -data_in2r;
+            	EZDSP5535_waitusec(429);
             	EZDSP5535_I2S_writeLeft(data_in2l);		
      		    EZDSP5535_I2S_writeRight(data_in2r);
             	
