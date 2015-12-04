@@ -313,35 +313,7 @@ Int16 harris_loop_linein( )
 	        		}
 	        			
 	        		data_in2l = -data_in2l;
-	        		data_in2r = -data_in2r;
-	        		
-	        		/*qindex_l = queue_in2l->tail - x - 1;
-	        		if (qindex_l < 0)
-	        			qindex_l = MAX_SIZE - 1;
-	        		result_l += (queue_in2l->Q[qindex_l]);
-	        		qindex_l++;
-	        		if (qindex_l > MAX_SIZE - 1)
-	        			qindex_l = 0;
-	        		result_l += (queue_in2l->Q[qindex_l] * 2);
-	        		qindex_l++;
-	        		if (qindex_l >(MAX_SIZE - 1))
-	        			qindex_l = 0;
-	        		result_l += (queue_in2l->Q[qindex_l]);
-	        		result_l = result_l / 4;
-	        		
-	        		qindex_r = queue_in2r->tail - x - 1;
-	        		if (qindex_r < 0)
-	        			qindex_r = MAX_SIZE - 1;
-	        		result_r += (queue_in2r->Q[qindex_r]);
-	        		qindex_r++;
-	        		if (qindex_r > MAX_SIZE - 1)
-	        			qindex_r = 0;
-	        		result_r += (queue_in2r->Q[qindex_r] * 2);
-	        		qindex_r++;
-	        		if (qindex_r >(MAX_SIZE - 1))
-	        			qindex_r = 0;
-	        		result_r += (queue_in2r->Q[qindex_l]);
-	        		result_r = result_r / 4;*/            	          	
+	        		data_in2r = -data_in2r;           	          	
         		}
         	EZDSP5535_I2S_writeLeft(data_in2l);		
 	        EZDSP5535_I2S_writeRight(data_in2r);  
