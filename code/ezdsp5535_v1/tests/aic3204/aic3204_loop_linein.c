@@ -136,12 +136,6 @@ Int16 harris_loop_linein( )
     Int16 sample; 
     Int16 data_in2l;
     Int16 data_in2r;
-    Int16 voice_flip_l = 0;
-    Int16 voice_flip_r = 0;
-    Int16 data_flip_l;
-    Int16 data_flip_r;
-    Int16 x = 65;
-    Int16 y = 20;
 	
     Queue *queue_in2l;
     Queue *queue_in2r;
@@ -150,10 +144,7 @@ Int16 harris_loop_linein( )
     Int16 conv_out_r = 0;
 	
 	//12k
-	// dryer
 	Int16 filter[MAX_SIZE] = {57,43,-41,22,-20,9,-16,7,-10,2,-6,2,-5,-0,-6,-1,1,-3,-4,-2,-3,-3,-0,-0,-3,1,1,-2,-1,1,1,-0,-1,1,2,-2,2,0,0,3,-1,1,-0,0,3,1,2,1,1,1,-0,3,-0,-1,1,-1,0,1,1,1,-2,1,3,-1,2,0,-0,1,-0,1,-2,1,2,-1,-1,1,0,-0,-0,3,-0,1,1,-1,1,1,-0,1,-1,1,-1,3,-3,5,-3,6,-8,15,-16,16}; 
-	// sine
-	Int16 s_filter[MAX_SIZE] = {4,-2,5,-3,4,-5,5,-4,5,-4,5,-3,4,-3,4,-2,3,-2,4,-1,3,-1,3,-3,3,-3,3,-2,5,-1,5,-2,4,-3,4,-4,4,-3,5,-2,5,-2,4,-2,2,-1,2,-0,2,1,1,2,0,2,-1,2,-1,3,-1,4,-1,4,-2,4,-2,4,-1,4,-1,5,-1,4,-3,3,-3,4,-3,6,-3,6,-4,7,-5,7,-6,8,-7,9,-7,10,-9,10,-9,9,-9,9,-6,9,-4,7};
 	
 	//12k
 	//Int16 filter[MAX_SIZE] = {570,431,-405,223,-198,88,-161,74,-102,21,-64,21,-50,-4,-61,-6,11,-28,-42,-17,-33,-28,-4,-3,-28,10,14,-25,-8,7,10,-2,-8,13,19,-22,17,2,1,32,-9,14,-1,5,28,8,19,14,6,11,-2,29,-4,-9,9,-10,2,8,8,6,-22,11,25,-9,16,1,-5,10,-1,7,-16,7,20,-12,-6,8,5,-2,-3,27,-1,15,7,-8,5,15,-2,12,-11,8,-13,28,-34,51,-28,57,-80,150,-164,158};
@@ -199,51 +190,31 @@ Int16 harris_loop_linein( )
             	data_in2l = data_in2l;
             	data_in2r = data_in2r;
             	
-        		if (!isFull(queue_in2l))
-        			enqueue(queue_in2l, data_in2l);
-        		if (!isFull(queue_in2r))
-        			enqueue(queue_in2r, data_in2r);
-        		else if (isFull(queue_in2l) && isFull(queue_in2r))
-        		{
-        			dequeue(queue_in2l);
-        			dequeue(queue_in2r);
-        			enqueue(queue_in2l, data_in2l);
-        			enqueue(queue_in2r, data_in2r);
-	        		conv_out_l = convq(queue_in2l,s_filter);       		
-	        		conv_out_r = convq(queue_in2r,s_filter);
-					/*if (((queue_in2l->tail) - x) < 0)
-						data_flip_l = queue_in2l->Q[MAX_SIZE - x];
-					else
-						data_flip_l = queue_in2l->Q[(queue_in2l->tail) - x];
-					if (((queue_in2r->tail) - x) < 0)
-						data_flip_r = queue_in2r->Q[MAX_SIZE - x];
-					else
-						data_flip_r = queue_in2r->Q[(queue_in2r->tail) - x];
-					data_flip_l = -data_flip_l;
-					data_flip_r = -data_flip_r;*/
-					if (msec % 100 == 0)
-					{				
-						key = EZDSP5535_SAR_getKey();
-						if (lastkey != key)
-						{
-							EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
-						}
-						lastkey = key;
-					}
-					//voice_flip_l = data_flip_l + conv_out_l;
-					//voice_flip_r = data_flip_r + conv_out_r;
-					if (key == SW1)
+        		enqueue(queue_in2l, data_in2l);
+        		conv_out_l = convq(queue_in2l,filter);
+
+        		enqueue(queue_in2r, data_in2r);
+        		conv_out_r = convq(queue_in2r,filter);
+
+				if (msec % 100 == 0)
+				{				
+					key = EZDSP5535_SAR_getKey();
+					if (lastkey != key)
 					{
-						EZDSP5535_I2S_writeLeft(conv_out_l);
-						EZDSP5535_I2S_writeRight(conv_out_r);
+						EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
 					}
-					else
-					{
-						//EZDSP5535_waitusec(y);
-						EZDSP5535_I2S_writeLeft(data_in2l);
-						EZDSP5535_I2S_writeRight(data_in2r);
-					}
-        		}
+					lastkey = key;
+				}
+				if (key == SW1)
+				{
+					EZDSP5535_I2S_writeLeft(conv_out_l);
+					EZDSP5535_I2S_writeRight(conv_out_r);
+				}
+				else
+				{
+					EZDSP5535_I2S_writeLeft(data_in2l);
+					EZDSP5535_I2S_writeRight(data_in2r);
+				}
             }
         }
 
