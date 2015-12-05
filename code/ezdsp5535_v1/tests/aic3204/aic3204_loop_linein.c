@@ -245,6 +245,7 @@ Int16 harris_loop_linein( )
     Int16 bestOut = 30000;
     Int16 bestX;
     Int16 x = 65;
+    Int16 y = 20;
 
     
     for (i = 0; i<MAX_SIZE; i++)
@@ -315,10 +316,11 @@ Int16 harris_loop_linein( )
 	        		data_in2l = -data_in2l;
 	        		data_in2r = -data_in2r;           	          	
         		}
-        	EZDSP5535_I2S_writeLeft(data_in2l);		
-	        EZDSP5535_I2S_writeRight(data_in2r);  
-	        //conv_out_l = -conv_out_l;
-	        //conv_out_r = -conv_out_r;	           	       	
+        		EZDSP5535_waitusec(y);
+	        	EZDSP5535_I2S_writeLeft(data_in2l);		
+		        EZDSP5535_I2S_writeRight(data_in2r);  
+		        //conv_out_l = -conv_out_l;
+		        //conv_out_r = -conv_out_r;	           	       	
             }
         }
     }
