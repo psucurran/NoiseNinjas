@@ -13,3 +13,4 @@ code/ezdsp5535_v1/tests/aic3204/Debug/makefile
 >>>>>>> origin/sean
 *.asm
 *.opensdf
+*.launch
