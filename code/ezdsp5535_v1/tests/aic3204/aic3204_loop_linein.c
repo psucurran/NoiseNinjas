@@ -136,23 +136,15 @@ Int16 harris_loop_linein( )
     Int16 sample; 
     Int16 data_in2l;
     Int16 data_in2r;
-    Int16 conv_gau_out_l = 0;
-    Int16 conv_gau_out_r = 0;
-    Int16 qindex_l;
-    Int16 qindex_r;
-    Int16 i;
-    Int16 temp = 0x0fff;
 	
     Queue *queue_in2l;
     Queue *queue_in2r;
-    Queue *queue_conv_l;
-    Queue *queue_conv_r;
 	
     Int16 conv_out_l = 0;
     Int16 conv_out_r = 0;
 	
 	Int16 filter[MAX_SIZE] = {4,-2,5,-3,4,-5,5,-4,5,-4,5,-3,4,-3,4,-2,3,-2,4,-1,3,-1,3,-3,3,-3,3,-2,5,-1,5,-2,4,-3,4,-4,4,-3,5,-2,5,-2,4,-2,2,-1,2,-0,2,1,1,2,0,2,-1,2,-1,3,-1,4,-1,4,-2,4,-2,4,-1,4,-1,5,-1,4,-3,3,-3,4,-3,6,-3,6,-4,7,-5,7,-6,8,-7,9,-7,10,-9,10,-9,9,-9,9,-6,9,-4,7};
-	Int16 gau[3] = {6,4,1};
+	
 	//12k
 	//Int16 filter[MAX_SIZE] = {57,43,-41,22,-20,9,-16,7,-10,2,-6,2,-5,-0,-6,-1,1,-3,-4,-2,-3,-3,-0,-0,-3,1,1,-2,-1,1,1,-0,-1,1,2,-2,2,0,0,3,-1,1,-0,0,3,1,2,1,1,1,-0,3,-0,-1,1,-1,0,1,1,1,-2,1,3,-1,2,0,-0,1,-0,1,-2,1,2,-1,-1,1,0,-0,-0,3,-0,1,1,-1,1,1,-0,1,-1,1,-1,3,-3,5,-3,6,-8,15,-16,16}; 
 	
@@ -170,10 +162,8 @@ Int16 harris_loop_linein( )
 	if(configureDSP())
 		return 1;
 	
-    queue_in2l = makeNewQueue(MAX_SIZE);
-    queue_in2r = makeNewQueue(MAX_SIZE);
-    queue_conv_l = makeNewQueue(3);
-    queue_conv_r = makeNewQueue(3);
+    queue_in2l = makeNewQueue();
+    queue_in2r = makeNewQueue();
  
  
  	EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
@@ -204,44 +194,11 @@ Int16 harris_loop_linein( )
             	
         		enqueue(queue_in2l, data_in2l);
         		conv_out_l = convq(queue_in2l,filter);
-        		enqueue(queue_conv_l, conv_out_l);
 
         		enqueue(queue_in2r, data_in2r);
         		conv_out_r = convq(queue_in2r,filter);
-        		enqueue(queue_conv_r, conv_out_r);
-        		if (isFull(queue_conv_l) && isFull(queue_conv_r))
-        		{
-        			dequeue(queue_conv_l);
-        			dequeue(queue_conv_r);
-        			enqueue(queue_conv_l, conv_out_l);
-        			enqueue(queue_conv_r, conv_out_r);
-        			
-        			qindex_l = queue_conv_l->tail;
-        			conv_gau_out_l = 0;
-        			for (i = 0; i < 3; i++)
-        			{
-        				if(qindex_l == 0)
-        					qindex_l = 2;
-        				else
-        					qindex_l--;
-        				conv_gau_out_l += ((gau[i] * (queue_conv_l->Q)[qindex_l]));
-        			}
-        			qindex_r= queue_conv_r->tail;
-        			conv_gau_out_r = 0;
-        			for (i = 0; i < 3; i++)
-        			{
-        				if(qindex_r == 0)
-        					qindex_r = 2;
-        				else
-        					qindex_r--;
-        				conv_gau_out_r += ((gau[i] * (queue_conv_r->Q)[qindex_r]));
-        			}
-        			EZDSP5535_I2S_writeLeft(temp);
-					EZDSP5535_I2S_writeRight(temp);
-					temp = -temp;
-        		//}
 
-				/*if (msec % 100 == 0)
+				if (msec % 100 == 0)
 				{				
 					key = EZDSP5535_SAR_getKey();
 					if (lastkey != key)
@@ -249,20 +206,22 @@ Int16 harris_loop_linein( )
 						EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
 					}
 					lastkey = key;
-				}*/
-				//if (key == SW1)
-				
-				//}
-				//else
-				//{
-					//EZDSP5535_I2S_writeLeft(data_in2l);
-					//EZDSP5535_I2S_writeRight(data_in2r);
-				//}
+				}
+				if (key == SW1)
+				{
+					EZDSP5535_I2S_writeLeft(conv_out_l);
+					EZDSP5535_I2S_writeRight(conv_out_r);
+				}
+				else
+				{
+					EZDSP5535_I2S_writeLeft(data_in2l);
+					EZDSP5535_I2S_writeRight(data_in2r);
+				}
             }
         }
 
     }
-    		
+    			
 	cleanUp();
     
     return 0;
