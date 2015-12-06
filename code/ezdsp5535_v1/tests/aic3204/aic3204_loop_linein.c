@@ -103,7 +103,7 @@ Int16 configureDSP()
     AIC3204_rset( 52, 0x30 );  // STEREO 1 Jack - IN2_L to LADC_P through 40 kohm      						   
     AIC3204_rset( 54, 0x03 );  // CM_1 (common mode) to LADC_M through 40 kohm					   
     AIC3204_rset( 55, 0x30 );  // IN2_R to RADC_P through 40 kohmm
-    AIC3204_rset( 57, 0xc0 );  // CM_1 (common mode) to RADC_M through 40 kohm   		     
+    AIC3204_rset( 57, 0xc0 );  // CM_1 (common mode) to RADC_M through 40 kohm 		     
     AIC3204_rset( 59, 0x00 );  // MIC_PGA_L unmute
     AIC3204_rset( 60, 0x00 );  // MIC_PGA_R unmute
     AIC3204_rset( 0,  0x00 );  // Select page 0
@@ -111,6 +111,9 @@ Int16 configureDSP()
     AIC3204_rset( 82, 0x44 );  // Unmute Left and Right ADC
     AIC3204_rset( 0,  0x00 );  // Select page 0 
     EZDSP5535_waitusec(100 );  // Wait
+    
+    AIC3204_rset( 87, 0x82 );  // left noise threshold -30dB
+    AIC3204_rset( 95, 0x82 );  // right noise threshold -30dB
     
     /* Initialize I2S */
     EZDSP5535_I2S_init();
@@ -142,8 +145,21 @@ Int16 harris_loop_linein( )
 	
     Int16 conv_out_l = 0;
     Int16 conv_out_r = 0;
+    Int16 conv_gau_out_l = 0;
+    Int16 conv_gau_out_r = 0;
+    Int16 conv_gau_0l = 0;
+    Int16 conv_gau_1l = 0;
+    Int16 conv_gau_2l = 0;
+    Int16 conv_gau_3l = 0;
+    Int16 conv_gau_4l = 0;
+    
+    Int16 conv_gau_0r = 0;
+    Int16 conv_gau_1r = 0;
+    Int16 conv_gau_2r = 0;
+    Int16 conv_gau_3r = 0;
+    Int16 conv_gau_4r = 0;
 	
-	Int16 filter[MAX_SIZE] = {4,-2,5,-3,4,-5,5,-4,5,-4,5,-3,4,-3,4,-2,3,-2,4,-1,3,-1,3,-3,3,-3,3,-2,5,-1,5,-2,4,-3,4,-4,4,-3,5,-2,5,-2,4,-2,2,-1,2,-0,2,1,1,2,0,2,-1,2,-1,3,-1,4,-1,4,-2,4,-2,4,-1,4,-1,5,-1,4,-3,3,-3,4,-3,6,-3,6,-4,7,-5,7,-6,8,-7,9,-7,10,-9,10,-9,9,-9,9,-6,9,-4,7};
+	Int16 filter[MAX_SIZE] = {41,-22,47,-31,43,-49,46,-41,52,-36,52,-29,42,-32,36,-23,32,-17,41,-9,35,-10,32,-26,25,-26,31,-19,46,-12,50,-17,44,-28,40,-37,44,-26,50,-16,47,-16,36,-19,25,-14,24,-0,21,11,12,16,0,19,-11,21,-14,32,-12,40,-10,42,-18,40,-22,38,-14,44,-8,48,-10,44,-26,35,-32,42,-33,57,-25,60,-37,71,-52,68,-59,84,-70,93,-71,103,-85,101,-86,95,-93,86,-59,86,-42,70};
 	
 	//12k
 	//Int16 filter[MAX_SIZE] = {57,43,-41,22,-20,9,-16,7,-10,2,-6,2,-5,-0,-6,-1,1,-3,-4,-2,-3,-3,-0,-0,-3,1,1,-2,-1,1,1,-0,-1,1,2,-2,2,0,0,3,-1,1,-0,0,3,1,2,1,1,1,-0,3,-0,-1,1,-1,0,1,1,1,-2,1,3,-1,2,0,-0,1,-0,1,-2,1,2,-1,-1,1,0,-0,-0,3,-0,1,1,-1,1,1,-0,1,-1,1,-1,3,-3,5,-3,6,-8,15,-16,16}; 
@@ -197,26 +213,29 @@ Int16 harris_loop_linein( )
 
         		enqueue(queue_in2r, data_in2r);
         		conv_out_r = convq(queue_in2r,filter);
+        		
+        		conv_out_l = 3 * conv_out_l;
+        		conv_out_r = 3 * conv_out_r;
+        		
+        		// messy convolution with a gaussian that we can clean up
+        		// if it works well enough
+        		conv_gau_0l = conv_gau_1l;
+        		conv_gau_1l = conv_gau_2l;
+        		conv_gau_2l = conv_gau_3l;
+        		conv_gau_3l = conv_gau_4l;
+        		conv_gau_4l = conv_out_l;
+        		
+        		conv_gau_0r = conv_gau_1r;
+        		conv_gau_1r = conv_gau_2r;
+        		conv_gau_2r = conv_gau_3r;
+        		conv_gau_3r = conv_gau_4r;
+        		conv_gau_4r = conv_out_r;
+        		
+        		conv_gau_out_l = (70*conv_gau_4l + 56*conv_gau_3l + 28*conv_gau_2l + 8*conv_gau_1l + 1*conv_gau_0l)/81;
+        		conv_gau_out_r = (70*conv_gau_4r + 56*conv_gau_3r + 28*conv_gau_2r + 8*conv_gau_1r + 1*conv_gau_0r)/81;
 
-				if (msec % 100 == 0)
-				{				
-					key = EZDSP5535_SAR_getKey();
-					if (lastkey != key)
-					{
-						EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
-					}
-					lastkey = key;
-				}
-				if (key == SW1)
-				{
-					EZDSP5535_I2S_writeLeft(conv_out_l);
-					EZDSP5535_I2S_writeRight(conv_out_r);
-				}
-				else
-				{
-					EZDSP5535_I2S_writeLeft(data_in2l);
-					EZDSP5535_I2S_writeRight(data_in2r);
-				}
+				EZDSP5535_I2S_writeLeft(conv_gau_out_l);
+				EZDSP5535_I2S_writeRight(conv_gau_out_r);
             }
         }
 
