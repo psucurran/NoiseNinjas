@@ -213,7 +213,8 @@ Int16 harris_loop_linein( )
         			dequeue(queue_conv_r);
         			enqueue(queue_conv_l, conv_out_l);
         			enqueue(queue_conv_r, conv_out_r);
-        			qindex = queue_conv_l->tail - 1;
+        			
+        			qindex = queue_conv_l->tail;
         			conv_gau_out_l = 0;
         			for (i = 0; i < 3; i++)
         			{
@@ -221,9 +222,9 @@ Int16 harris_loop_linein( )
         					qindex = 2;
         				else
         					qindex--;
-        				conv_gau_out_l += ((gau[i] * queue_conv_l->Q[qindex]) / 11);
+        				conv_gau_out_l += ((gau[i] * (queue_conv_l->Q)[qindex]) / 11);
         			}
-        			qindex = queue_conv_r->tail - 1;
+        			qindex = queue_conv_r->tail;
         			conv_gau_out_r = 0;
         			for (i = 0; i < 3; i++)
         			{
@@ -231,7 +232,7 @@ Int16 harris_loop_linein( )
         					qindex = 2;
         				else
         					qindex--;
-        				conv_gau_out_r += ((gau[i] * queue_conv_r->Q[qindex]) / 11);
+        				conv_gau_out_r += ((gau[i] * (queue_conv_r->Q)[qindex]) / 11);
         			}
         		}
 
