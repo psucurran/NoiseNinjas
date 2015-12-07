@@ -165,6 +165,12 @@ Int16 harris_loop_linein( )
     Int16 conv_gau_2r = 0;
     Int16 conv_gau_3r = 0;
     Int16 conv_gau_4r = 0;
+    
+    Int16 lowpass_out_0l;
+    Int16 lowpass_out_1l;
+    Int16 lowpass_out_0r;
+    Int16 lowpass_out_1r;
+    long cutoff=1200.0,RC,sampleRate=24000.0,dt,alpha;
 	
 	Int16 filter[MAX_SIZE] = {41,-22,47,-31,43,-49,46,-41,52,-36,52,-29,42,-32,36,-23,32,-17,41,-9,35,-10,32,-26,25,-26,31,-19,46,-12,50,-17,44,-28,40,-37,44,-26,50,-16,47,-16,36,-19,25,-14,24,-0,21,11,12,16,0,19,-11,21,-14,32,-12,40,-10,42,-18,40,-22,38,-14,44,-8,48,-10,44,-26,35,-32,42,-33,57,-25,60,-37,71,-52,68,-59,84,-70,93,-71,103,-85,101,-86,95,-93,86,-59,86,-42,70};
 	
@@ -262,6 +268,17 @@ Int16 harris_loop_linein( )
 				
 				conv_gau_out_l += data_noise_l;
 				conv_gau_out_r += data_noise_r;
+				
+				// lowpass filter				
+				RC = 1.0/(cutoff*2.0*3.14);
+				dt = 1/sampleRate;
+				alpha = dt/(RC+dt);
+				
+				lowpass_out_1l = lowpass_out_0l + (alpha*(conv_gau_out_l - lowpass_out_0l)); 	
+				lowpass_out_0l = lowpass_out_1l;
+				lowpass_out_1r = lowpass_out_0r + (alpha*(conv_gau_out_r - lowpass_out_0r));
+				lowpass_out_0r = lowpass_out_1r;		
+				
 				EZDSP5535_waitusec(y);
 				EZDSP5535_I2S_writeLeft(conv_gau_out_l);
 				EZDSP5535_I2S_writeRight(conv_gau_out_r);
