@@ -139,21 +139,14 @@ Int16 harris_loop_linein( )
     Int16 sample; 
     Int16 data_in2l;
     Int16 data_in2r;
-    Int16 data_noise_l;
-    Int16 data_noise_r;
-    Int16 x = 65;
-    Int16 y = 20;
 	
     Queue *queue_in2l;
     Queue *queue_in2r;
-    Queue *queue_noise_l;
-    Queue *queue_noise_r;
 	
     Int16 conv_out_l = 0;
     Int16 conv_out_r = 0;
     Int16 conv_gau_out_l = 0;
     Int16 conv_gau_out_r = 0;
-    
     Int16 conv_gau_0l = 0;
     Int16 conv_gau_1l = 0;
     Int16 conv_gau_2l = 0;
@@ -187,8 +180,6 @@ Int16 harris_loop_linein( )
 	
     queue_in2l = makeNewQueue();
     queue_in2r = makeNewQueue();
-    queue_noise_l = makeNewQueue();
-    queue_noise_r = makeNewQueue();
  
  
  	EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
@@ -219,49 +210,30 @@ Int16 harris_loop_linein( )
             	
         		enqueue(queue_in2l, data_in2l);
         		conv_out_l = convq(queue_in2l,filter);
-        		
+
         		enqueue(queue_in2r, data_in2r);
         		conv_out_r = convq(queue_in2r,filter);
         		
         		conv_out_l = 3 * conv_out_l;
-        		conv_out_r = 3 * conv_out_r;        		
+        		conv_out_r = 3 * conv_out_r;
         		
-        		data_noise_l = data_in2l - conv_out_l;
-        		data_noise_r = data_in2r - conv_out_r;
-        		
-        		enqueue(queue_noise_l, data_noise_l);
-        		enqueue(queue_noise_r, data_noise_r);
-        		
-				if (((queue_noise_l->tail) - x) < 0)
-					data_noise_l = queue_noise_l->Q[MAX_SIZE - x];
-				else
-					data_noise_l = queue_noise_l->Q[(queue_noise_l->tail) - x];
-				if (((queue_noise_r->tail) - x) < 0)
-					data_noise_r = queue_noise_r->Q[MAX_SIZE - x];
-				else
-					data_noise_r = queue_noise_r->Q[(queue_noise_r->tail) - x];
-				data_noise_l = -data_noise_l;
-				data_noise_r = -data_noise_r;
-				
-				conv_gau_out_l += data_noise_l;
-				conv_gau_out_r += data_noise_r;
-				// messy convolution with a gaussian that we can clean up
+        		// messy convolution with a gaussian that we can clean up
         		// if it works well enough
         		conv_gau_0l = conv_gau_1l;
         		conv_gau_1l = conv_gau_2l;
         		conv_gau_2l = conv_gau_3l;
         		conv_gau_3l = conv_gau_4l;
-        		conv_gau_4l = conv_gau_out_l;
+        		conv_gau_4l = conv_out_l;
         		
         		conv_gau_0r = conv_gau_1r;
         		conv_gau_1r = conv_gau_2r;
         		conv_gau_2r = conv_gau_3r;
         		conv_gau_3r = conv_gau_4r;
-        		conv_gau_4r = conv_gau_out_r;
+        		conv_gau_4r = conv_out_r;
         		
         		conv_gau_out_l = (70*conv_gau_4l + 56*conv_gau_3l + 28*conv_gau_2l + 8*conv_gau_1l + 1*conv_gau_0l)/81;
         		conv_gau_out_r = (70*conv_gau_4r + 56*conv_gau_3r + 28*conv_gau_2r + 8*conv_gau_1r + 1*conv_gau_0r)/81;
-				EZDSP5535_waitusec(y);
+
 				EZDSP5535_I2S_writeLeft(conv_gau_out_l);
 				EZDSP5535_I2S_writeRight(conv_gau_out_r);
             }
