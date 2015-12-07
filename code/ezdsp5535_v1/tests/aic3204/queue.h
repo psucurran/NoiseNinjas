@@ -19,12 +19,13 @@ typedef struct Queue {
 	Int16 head;
 	Int16 tail;
 	Int16 count;
-	Int16 Q[MAX_SIZE];
+	Int16 size;
+	Int16 *Q;
 } Queue;
 
 void enqueue(Queue *queue, Int16 x);
 void dequeue(Queue *queue);
-Queue *makeNewQueue();
+Queue *makeNewQueue(Int16 size);
 Int16 isEmpty(Queue *queue);
 Int16 isFull(Queue *queue);
 
