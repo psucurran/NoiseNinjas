@@ -224,27 +224,10 @@ Int16 harris_loop_linein( )
         		conv_out_r = convq(queue_in2r,filter);
         		
         		conv_out_l = 3 * conv_out_l;
-        		conv_out_r = 3 * conv_out_r;
+        		conv_out_r = 3 * conv_out_r;        		
         		
-        		// messy convolution with a gaussian that we can clean up
-        		// if it works well enough
-        		conv_gau_0l = conv_gau_1l;
-        		conv_gau_1l = conv_gau_2l;
-        		conv_gau_2l = conv_gau_3l;
-        		conv_gau_3l = conv_gau_4l;
-        		conv_gau_4l = conv_out_l;
-        		
-        		conv_gau_0r = conv_gau_1r;
-        		conv_gau_1r = conv_gau_2r;
-        		conv_gau_2r = conv_gau_3r;
-        		conv_gau_3r = conv_gau_4r;
-        		conv_gau_4r = conv_out_r;
-        		
-        		conv_gau_out_l = (70*conv_gau_4l + 56*conv_gau_3l + 28*conv_gau_2l + 8*conv_gau_1l + 1*conv_gau_0l)/81;
-        		conv_gau_out_r = (70*conv_gau_4r + 56*conv_gau_3r + 28*conv_gau_2r + 8*conv_gau_1r + 1*conv_gau_0r)/81;
-        		
-        		data_noise_l = data_in2l - conv_gau_out_l;
-        		data_noise_r = data_in2r - conv_gau_out_r;
+        		data_noise_l = data_in2l - conv_out_l;
+        		data_noise_r = data_in2r - conv_out_r;
         		
         		enqueue(queue_noise_l, data_noise_l);
         		enqueue(queue_noise_r, data_noise_r);
@@ -262,6 +245,22 @@ Int16 harris_loop_linein( )
 				
 				conv_gau_out_l += data_noise_l;
 				conv_gau_out_r += data_noise_r;
+				// messy convolution with a gaussian that we can clean up
+        		// if it works well enough
+        		conv_gau_0l = conv_gau_1l;
+        		conv_gau_1l = conv_gau_2l;
+        		conv_gau_2l = conv_gau_3l;
+        		conv_gau_3l = conv_gau_4l;
+        		conv_gau_4l = conv_gau_out_l;
+        		
+        		conv_gau_0r = conv_gau_1r;
+        		conv_gau_1r = conv_gau_2r;
+        		conv_gau_2r = conv_gau_3r;
+        		conv_gau_3r = conv_gau_4r;
+        		conv_gau_4r = conv_gau_out_r;
+        		
+        		conv_gau_out_l = (70*conv_gau_4l + 56*conv_gau_3l + 28*conv_gau_2l + 8*conv_gau_1l + 1*conv_gau_0l)/81;
+        		conv_gau_out_r = (70*conv_gau_4r + 56*conv_gau_3r + 28*conv_gau_2r + 8*conv_gau_1r + 1*conv_gau_0r)/81;
 				EZDSP5535_waitusec(y);
 				EZDSP5535_I2S_writeLeft(conv_gau_out_l);
 				EZDSP5535_I2S_writeRight(conv_gau_out_r);
