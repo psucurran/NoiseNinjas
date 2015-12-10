@@ -4,6 +4,7 @@ aic3204_loop_linein.obj: ../aic3204_loop_linein.c
 aic3204_loop_linein.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h
 aic3204_loop_linein.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/linkage.h
 aic3204_loop_linein.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdarg.h
+aic3204_loop_linein.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h
 aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h
 aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/tistdtypes.h
 aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/soc.h
@@ -49,11 +50,13 @@ aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5
 aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_i2s.h
 aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h
 aic3204_loop_linein.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h
+aic3204_loop_linein.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_sar.h
 
 ../aic3204_loop_linein.c: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/linkage.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdarg.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/tistdtypes.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/soc.h: 
@@ -99,3 +102,4 @@ C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../.
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_i2s.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h: 
+C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_sar.h: 

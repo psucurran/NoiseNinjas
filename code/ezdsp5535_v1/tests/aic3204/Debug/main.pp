@@ -25,6 +25,7 @@ main.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/ai
 main.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_gpio.h
 main.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_tim.h
 main.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_wdt.h
+main.obj: C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_sar.h
 
 ../main.c: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h: 
@@ -51,3 +52,4 @@ C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../.
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_gpio.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_tim.h: 
 C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../c55xx_csl/inc/cslr_wdt.h: 
+C:/Users/Steve/Documents/GitHub/NoiseNinjas/code/ezdsp5535_v1/tests/aic3204/../../include/ezdsp5535_sar.h: 
