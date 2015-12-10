@@ -135,13 +135,13 @@ Int16 harris_loop_linein( )
     Int16 sec, msec;
     Int16 sample; 
     Int16 data_in2l;
-    Int16 data_in2r;
+    //Int16 data_in2r;
 	
     Queue *queue_in2l;
-    Queue *queue_in2r;
+    //Queue *queue_in2r;
 	
     Int16 conv_out_l = 0;
-    Int16 conv_out_r = 0;
+    //Int16 conv_out_r = 0;
 	
 	//12k
 	Int16 filter[MAX_SIZE] = {57,43,-41,22,-20,9,-16,7,-10,2,-6,2,-5,-0,-6,-1,1,-3,-4,-2,-3,-3,-0,-0,-3,1,1,-2,-1,1,1,-0,-1,1,2,-2,2,0,0,3,-1,1,-0,0,3,1,2,1,1,1,-0,3,-0,-1,1,-1,0,1,1,1,-2,1,3,-1,2,0,-0,1,-0,1,-2,1,2,-1,-1,1,0,-0,-0,3,-0,1,1,-1,1,1,-0,1,-1,1,-1,3,-3,5,-3,6,-8,15,-16,16}; 
@@ -161,7 +161,7 @@ Int16 harris_loop_linein( )
 		return 1;
 	
     queue_in2l = makeNewQueue();
-    queue_in2r = makeNewQueue();
+    //queue_in2r = makeNewQueue();
  
  
  	EZDSP5535_LED_toggle( 0 );  // Toggle DS2 (GREEN LED)
@@ -181,20 +181,18 @@ Int16 harris_loop_linein( )
         {
             for ( sample = 0 ; sample < 48 ; sample++ )
             {
-            	EZDSP5535_I2S_readRight(&data_in2r);
+            	//EZDSP5535_I2S_readRight(&data_in2r);
             	EZDSP5535_I2S_readLeft(&data_in2l);
             	
             	data_in2l += 129;
-            	data_in2r += 100;
+            	//data_in2r += 100;
             	
-            	data_in2l = data_in2l;
-            	data_in2r = data_in2r;
             	
         		enqueue(queue_in2l, data_in2l);
         		conv_out_l = convq(queue_in2l,filter);
 
-        		enqueue(queue_in2r, data_in2r);
-        		conv_out_r = convq(queue_in2r,filter);
+        		//enqueue(queue_in2r, data_in2r);
+        		//conv_out_r = convq(queue_in2r,filter);
 
 				if (msec % 100 == 0)
 				{				
@@ -208,12 +206,12 @@ Int16 harris_loop_linein( )
 				if (key == SW1)
 				{
 					EZDSP5535_I2S_writeLeft(conv_out_l);
-					EZDSP5535_I2S_writeRight(conv_out_r);
+					EZDSP5535_I2S_writeRight(conv_out_l);
 				}
 				else
 				{
 					EZDSP5535_I2S_writeLeft(data_in2l);
-					EZDSP5535_I2S_writeRight(data_in2r);
+					EZDSP5535_I2S_writeRight(data_in2l);
 				}
             }
         }
